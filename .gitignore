@@ -1,0 +1,4 @@
+/_output
+/packages/*/pkg
+/packages/*/src
+/packages/*/tmp

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+set -e
+
+VERSION=$1
+
+SOURCE=/packages
+OUTPUT=/_output/packages/x86_64
+
+packages="
+gnu-libiconv
+libxlsxwriter
+php${VERSION}
+php${VERSION}-apcu
+php${VERSION}-memcached
+php${VERSION}-redis
+php${VERSION}-xdebug
+php${VERSION}-yaml
+"
+
+sudo chown -R packager:abuild $OUTPUT
+sudo rm -rf ${SOURCE}/*/pkg ${SOURCE}/*/src ${SOURCE}/*/tmp ${OUTPUT}/*
+
+generate-index
+abuild-sign -k ~/.abuild/skpr.rsa.priv ${OUTPUT}/APKINDEX.tar.gz
+sudo apk update
+
+for package in $packages; do
+  cd ${SOURCE}/$package
+
+  # For PHP we also generate tmp directory for some temporary files
+  rm -rf tmp
+
+  # Clean pkgdir and srcdir
+  abuild clean
+
+  abuild checksum
+  abuild -r -K
+
+  # Generate index with trusted signature
+  generate-index
+
+  # Clean packages with previous versions
+  abuild cleanoldpkg
+
+  # Regenerate index with trusted signature
+  generate-index
+done
