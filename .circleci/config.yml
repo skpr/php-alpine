@@ -95,6 +95,7 @@ jobs:
       PHP:    "7.3"
 
 workflows:
+  version: 2
   release:
     jobs:
       - test-3.8-php-7.1:
