@@ -7,14 +7,17 @@ build: &build
     - run: make keys
     - run:
         name: Build
-        command: make build ALPINE=$ALPINE PHP=$PHP
+        command: |
+          echo "Building alpine $ALPINE php $PHP"
+          make build ALPINE=$ALPINE PHP=$PHP
     - run:
-        name: Deploy alpine-$ALPINE php-$PHP
+        name: Release
         command: |
           if [ "$CIRCLE_BRANCH" == "master" ]; then
+            echo "Releasing alpine $ALPINE php $PHP"
             make deploy ALPINE=$ALPINE PHP=$PHP
           else
-            echo "Skipping..."
+            echo "On branch $CIRCLE_BRANCH so skipping..."
           fi
 
 jobs:
