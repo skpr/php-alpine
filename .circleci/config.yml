@@ -1,6 +1,20 @@
 version: 2
 
-build: &build
+orbs:
+  aws-s3: circleci/aws-s3@1.0.4
+
+test: &test
+  machine: true
+  steps:
+    - checkout
+    - run: make keys
+    - run:
+        name: Build
+        command: |
+          echo "Building alpine $ALPINE php
+          make build ALPINE=$ALPINE PHP=$PHP
+
+release: &release
   machine: true
   steps:
     - checkout
@@ -10,55 +24,124 @@ build: &build
         command: |
           echo "Building alpine $ALPINE php $PHP"
           make build ALPINE=$ALPINE PHP=$PHP
-    - run:
-        name: Release
-        command: |
-          if [ "$CIRCLE_BRANCH" == "master" ]; then
-            echo "Releasing alpine $ALPINE php $PHP"
-            make deploy ALPINE=$ALPINE PHP=$PHP
-          else
-            echo "On branch $CIRCLE_BRANCH so skipping..."
-          fi
+    - aws-s3/sync:
+        from: _output/${ALPINE}/${PHP}
+        to: 's3://package-skpr-io/php-alpine/${ALPINE}/${PHP}'
+        arguments: |
+          --acl public-read \
+          --cache-control "max-age=86400"
+        overwrite: true
 
 jobs:
-  alpine-3.8-php-7.1:
-    <<: *build
+  test-3.8-php-7.1:
+    <<: *test
     environment:
-      ALPINE: 3.8
-      PHP: 7.1
-  alpine-3.8-php-7.2:
-    <<: *build
+      ALPINE: "3.8"
+      PHP:    "7.1"
+  test-3.8-php-7.2:
+    <<: *test
     environment:
-      ALPINE: 3.8
-      PHP: 7.2
-  alpine-3.8-php-7.3:
-    <<: *build
+      ALPINE: "3.8"
+      PHP:    "7.2"
+  test-3.8-php-7.3:
+    <<: *test
     environment:
-      ALPINE: 3.8
-      PHP: 7.3
-  alpine-3.9-php-7.1:
-    <<: *build
+      ALPINE: "3.8"
+      PHP:    "7.3"
+  test-3.9-php-7.1:
+    <<: *test
     environment:
-      ALPINE: 3.9
-      PHP: 7.1
-  alpine-3.9-php-7.2:
-    <<: *build
+      ALPINE: "3.9"
+      PHP:    "7.1"
+  test-3.9-php-7.2:
+    <<: *test
     environment:
-      ALPINE: 3.9
-      PHP: 7.2
-  alpine-3.9-php-7.3:
-    <<: *build
+      ALPINE: "3.9"
+      PHP:    "7.2"
+  test-3.9-php-7.3:
+    <<: *test
     environment:
-      ALPINE: 3.9
-      PHP: 7.3
+      ALPINE: "3.9"
+      PHP:    "7.3"
+  release-3.8-php-7.1:
+    <<: *release
+    environment:
+      ALPINE: "3.8"
+      PHP:    "7.1"
+  release-3.8-php-7.2:
+    <<: *release
+    environment:
+      ALPINE: "3.8"
+      PHP:    "7.2"
+  release-3.8-php-7.3:
+    <<: *release
+    environment:
+      ALPINE: "3.8"
+      PHP:    "7.3"
+  release-3.9-php-7.1:
+    <<: *release
+    environment:
+      ALPINE: "3.9"
+      PHP:    "7.1"
+  release-3.9-php-7.2:
+    <<: *release
+    environment:
+      ALPINE: "3.9"
+      PHP:    "7.2"
+  release-3.9-php-7.3:
+    <<: *release
+    environment:
+      ALPINE: "3.9"
+      PHP:    "7.3"
 
 workflows:
-  version: 2
-  build_release:
+  release:
     jobs:
-      - alpine-3.8-php-7.1
-      - alpine-3.8-php-7.2
-      - alpine-3.8-php-7.3
-      - alpine-3.9-php-7.1
-      - alpine-3.9-php-7.2
-      - alpine-3.9-php-7.3
+      - test-3.8-php-7.1:
+          filters:
+            branches:
+              ignore: master
+      - test-3.8-php-7.2:
+          filters:
+            branches:
+              ignore: master
+      - test-3.8-php-7.3:
+          filters:
+            branches:
+              ignore: master
+      - test-3.9-php-7.1:
+          filters:
+            branches:
+              ignore: master
+      - test-3.9-php-7.2:
+          filters:
+            branches:
+              ignore: master
+      - test-3.9-php-7.3:
+          filters:
+            branches:
+              ignore: master
+      - release-3.8-php-7.1:
+          filters:
+            branches:
+              only: master
+      - release-3.8-php-7.2:
+          filters:
+            branches:
+              only: master
+      - release-3.8-php-7.3:
+          filters:
+            branches:
+              only: master
+      - release-3.9-php-7.1:
+          filters:
+            branches:
+              only: master
+      - release-3.9-php-7.2:
+          filters:
+            branches:
+              only: master
+      - release-3.9-php-7.3:
+          filters:
+            branches:
+              only: master
