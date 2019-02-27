@@ -6,8 +6,9 @@ build: &build
   steps:
     - setup_remote_docker
     - checkout
+    - run: make keys
     - run:
-        name: Build alpine-$ALPINE php-$PHP
+        name: Build
         command: make build ALPINE=$ALPINE PHP=$PHP
     - run:
         name: Deploy alpine-$ALPINE php-$PHP
