@@ -20,4 +20,7 @@ keys:
 	openssl genrsa -out $(PRIVATE_KEY) 4096
 	openssl rsa -in $(PRIVATE_KEY) -pubout -out $(PUBLIC_KEY)
 
+deploy:
+	@echo "Not implemented..."
+
 .PHONY: *

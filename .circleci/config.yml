@@ -1,0 +1,62 @@
+version: 2
+
+build: &build
+  docker:
+    - image: previousnext/container-builder:latest
+  steps:
+    - setup_remote_docker
+    - checkout
+    - run:
+        name: Build alpine-$ALPINE php-$PHP
+        command: make build ALPINE=$ALPINE PHP=$PHP
+    - run:
+        name: Deploy alpine-$ALPINE php-$PHP
+        command: |
+          if [ "$CIRCLE_BRANCH" == "master" ]; then
+            make deploy ALPINE=$ALPINE PHP=$PHP
+          else
+            echo "Skipping..."
+          fi
+
+jobs:
+  alpine-3.8-php-7.1:
+    <<: *build
+    environment:
+      ALPINE: 3.8
+      PHP: 7.1
+  alpine-3.8-php-7.2:
+    <<: *build
+    environment:
+      ALPINE: 3.8
+      PHP: 7.2
+  alpine-3.8-php-7.3:
+    <<: *build
+    environment:
+      ALPINE: 3.8
+      PHP: 7.3
+  alpine-3.9-php-7.1:
+    <<: *build
+    environment:
+      ALPINE: 3.9
+      PHP: 7.1
+  alpine-3.9-php-7.2:
+    <<: *build
+    environment:
+      ALPINE: 3.9
+      PHP: 7.2
+  alpine-3.9-php-7.3:
+    <<: *build
+    environment:
+      ALPINE: 3.9
+      PHP: 7.3
+
+workflows:
+  version: 2
+  build_release:
+    jobs:
+      - alpine-3.8-php-7.1
+      - alpine-3.8-php-7.2
+      - alpine-3.8-php-7.3
+      - alpine-3.9-php-7.1
+      - alpine-3.9-php-7.2
+      - alpine-3.9-php-7.3
