@@ -18,6 +18,7 @@ php${VERSION}-xdebug
 php${VERSION}-yaml
 "
 
+sudo chown -R packager:abuild $SOURCE
 sudo chown -R packager:abuild $OUTPUT
 sudo rm -rf ${SOURCE}/*/pkg ${SOURCE}/*/src ${SOURCE}/*/tmp ${OUTPUT}/*
 
