@@ -20,6 +20,8 @@ release: &release
   steps:
     - checkout
     - aws-cli/install
+    - aws-cli/configure:
+        aws-region: us-east-1
     - run:
         name: Decrypt Keys
         command: |
