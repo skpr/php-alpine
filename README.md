@@ -1,6 +1,15 @@
 PHP Repositories for Alpine
 ===========================
 
+```
+ENV ALPINE_VERSION=3.8
+ENV PHP_VERSION=7.3
+
+RUN apk add --no-cache curl ca-certificates && \
+    curl -L https://packages.skpr.io/php-alpine/skpr.rsa.pub -o /etc/apk/keys/skpr.rsa.pub && \
+    echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
+```
+
 ## Local Development
 
 **Generate Keys**
