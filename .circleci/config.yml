@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-s3: circleci/aws-s3@1.0.4
+  aws-s3: circleci/aws-s3@1.0.0
 
 test: &test
   machine: true
