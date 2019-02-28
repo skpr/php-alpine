@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-s3: circleci/aws-s3@1.0.0
+  aws-s3: circleci/aws-s3@1.0.4
 
 test: &test
   machine: true
@@ -27,9 +27,7 @@ release: &release
     - aws-s3/sync:
         from: _output/${ALPINE}/php${PHP}
         to: 's3://package-skpr-io/php-alpine/${ALPINE}/php${PHP}'
-        arguments: |
-          --acl public-read \
-          --cache-control "max-age=86400"
+        arguments: --acl public-read --cache-control "max-age=86400"
         overwrite: true
 
 jobs:
