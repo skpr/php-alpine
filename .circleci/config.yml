@@ -25,8 +25,8 @@ release: &release
           echo "Building alpine $ALPINE php $PHP"
           make build ALPINE=$ALPINE PHP=$PHP
     - aws-s3/sync:
-        from: _output/${ALPINE}/${PHP}
-        to: 's3://package-skpr-io/php-alpine/${ALPINE}/${PHP}'
+        from: _output/${ALPINE}/php${PHP}
+        to: 's3://package-skpr-io/php-alpine/${ALPINE}/php${PHP}'
         arguments: |
           --acl public-read \
           --cache-control "max-age=86400"
