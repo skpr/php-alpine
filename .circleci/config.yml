@@ -12,7 +12,7 @@ test: &test
     - run:
         name: Build
         command: |
-          echo "Building alpine $ALPINE php
+          echo "Building alpine $ALPINE php"
           make build ALPINE=$ALPINE PHP=$PHP
 
 release: &release
