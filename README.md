@@ -1,5 +1,5 @@
-PHP Repositories for Alpine
-===========================
+PHP Packages for Alpine Linux
+=============================
 
 ```
 ENV ALPINE_VERSION=3.8
