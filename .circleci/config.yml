@@ -33,62 +33,62 @@ release: &release
         overwrite: true
 
 jobs:
-  test-3.8-php-7.1:
+  test_38_php_71:
     <<: *test
     environment:
       ALPINE: "3.8"
       PHP:    "7.1"
-  test-3.8-php-7.2:
+  test_38_php_72:
     <<: *test
     environment:
       ALPINE: "3.8"
       PHP:    "7.2"
-  test-3.8-php-7.3:
+  test_38_php_73:
     <<: *test
     environment:
       ALPINE: "3.8"
       PHP:    "7.3"
-  test-3.9-php-7.1:
+  test_39_php_71:
     <<: *test
     environment:
       ALPINE: "3.9"
       PHP:    "7.1"
-  test-3.9-php-7.2:
+  test_39_php_72:
     <<: *test
     environment:
       ALPINE: "3.9"
       PHP:    "7.2"
-  test-3.9-php-7.3:
+  test_39_php_73:
     <<: *test
     environment:
       ALPINE: "3.9"
       PHP:    "7.3"
-  release-3.8-php-7.1:
+  release_38_php_71:
     <<: *release
     environment:
       ALPINE: "3.8"
       PHP:    "7.1"
-  release-3.8-php-7.2:
+  release_38_php_72:
     <<: *release
     environment:
       ALPINE: "3.8"
       PHP:    "7.2"
-  release-3.8-php-7.3:
+  release_38_php_73:
     <<: *release
     environment:
       ALPINE: "3.8"
       PHP:    "7.3"
-  release-3.9-php-7.1:
+  release_39_php_71:
     <<: *release
     environment:
       ALPINE: "3.9"
       PHP:    "7.1"
-  release-3.9-php-7.2:
+  release_39_php_72:
     <<: *release
     environment:
       ALPINE: "3.9"
       PHP:    "7.2"
-  release-3.9-php-7.3:
+  release_39_php_73:
     <<: *release
     environment:
       ALPINE: "3.9"
@@ -98,51 +98,51 @@ workflows:
   version: 2
   release:
     jobs:
-      - test-3.8-php-7.1:
+      - test_38_php_71:
           filters:
             branches:
               ignore: master
-      - test-3.8-php-7.2:
+      - test_38_php_72:
           filters:
             branches:
               ignore: master
-      - test-3.8-php-7.3:
+      - test_38_php_73:
           filters:
             branches:
               ignore: master
-      - test-3.9-php-7.1:
+      - test_39_php_71:
           filters:
             branches:
               ignore: master
-      - test-3.9-php-7.2:
+      - test_39_php_72:
           filters:
             branches:
               ignore: master
-      - test-3.9-php-7.3:
+      - test_39_php_73:
           filters:
             branches:
               ignore: master
-      - release-3.8-php-7.1:
+      - release_38_php_71:
           filters:
             branches:
               only: master
-      - release-3.8-php-7.2:
+      - release_38_php_72:
           filters:
             branches:
               only: master
-      - release-3.8-php-7.3:
+      - release_38_php_73:
           filters:
             branches:
               only: master
-      - release-3.9-php-7.1:
+      - release_39_php_71:
           filters:
             branches:
               only: master
-      - release-3.9-php-7.2:
+      - release_39_php_72:
           filters:
             branches:
               only: master
-      - release-3.9-php-7.3:
+      - release_39_php_73:
           filters:
             branches:
               only: master
