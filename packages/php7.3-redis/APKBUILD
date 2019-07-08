@@ -1,4 +1,4 @@
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=2
 _phpver=7.3
 _php=php$_phpver
