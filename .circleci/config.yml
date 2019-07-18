@@ -82,6 +82,21 @@ jobs:
     environment:
       ALPINE: "3.9"
       PHP:    "7.3"
+  test_310_php_71:
+    <<: *test
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.1"
+  test_310_php_72:
+    <<: *test
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.2"
+  test_310_php_73:
+    <<: *test
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.3"
   release_38_php_71:
     <<: *release
     environment:
@@ -112,7 +127,21 @@ jobs:
     environment:
       ALPINE: "3.9"
       PHP:    "7.3"
-
+  release_310_php_71:
+    <<: *release
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.1"
+  release_310_php_72:
+    <<: *release
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.2"
+  release_310_php_73:
+    <<: *release
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.3"
 workflows:
   version: 2
   release:
@@ -141,6 +170,18 @@ workflows:
           filters:
             branches:
               ignore: master
+      - test_310_php_71:
+          filters:
+            branches:
+              ignore: master
+      - test_310_php_72:
+          filters:
+            branches:
+              ignore: master
+      - test_310_php_73:
+          filters:
+            branches:
+              ignore: master
       - release_38_php_71:
           filters:
             branches:
@@ -162,6 +203,18 @@ workflows:
             branches:
               only: master
       - release_39_php_73:
+          filters:
+            branches:
+              only: master
+      - release_310_php_71:
+          filters:
+            branches:
+              only: master
+      - release_310_php_72:
+          filters:
+            branches:
+              only: master
+      - release_310_php_73:
           filters:
             branches:
               only: master
