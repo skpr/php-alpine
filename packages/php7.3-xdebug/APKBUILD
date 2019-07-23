@@ -1,4 +1,4 @@
-pkgver=2.7.0
+pkgver=2.7.2
 _extra_version=beta1
 pkgrel=0
 _phpver=7.3
