@@ -1,5 +1,5 @@
-pkgver=2.7.0
-_extra_version=beta1
+pkgver=2.7.2
+_extra_version=
 pkgrel=0
 _phpver=7.3
 _php=php$_phpver
