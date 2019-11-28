@@ -1,6 +1,8 @@
+diff --git a/ext/iconv/config.m4 b/ext/iconv/config.m4
+index fe9b47aaf4..5e7fb8dc20 100644
 --- a/ext/iconv/config.m4
 +++ b/ext/iconv/config.m4
-@@ -50,7 +50,12 @@
+@@ -51,7 +51,12 @@ if test "$PHP_ICONV" != "no"; then
        AC_RUN_IFELSE([AC_LANG_SOURCE([[
  #include <$PHP_ICONV_H_PATH>
  int main() {
@@ -8,9 +10,22 @@
 +  char *version = "unknown";
 +  static char buf[16];
 +  snprintf(buf, sizeof(buf), "%d.%d",
-+    ((_LIBICONV_VERSION >> 8) & 0x0f), (_LIBICONV_VERSION & 0x0f));
++    _LIBICONV_VERSION >> 8, _LIBICONV_VERSION & 0xff);
 +  version = buf;
 +  printf("version %s ", version);
    return 0;
  }
        ]])],[
+diff --git a/ext/iconv/iconv.c b/ext/iconv/iconv.c
+index d4244b19f4..f7833adaa2 100644
+--- a/ext/iconv/iconv.c
++++ b/ext/iconv/iconv.c
+@@ -281,7 +281,7 @@ PHP_MINIT_FUNCTION(miconv)
+ 	{
+ 		static char buf[16];
+ 		snprintf(buf, sizeof(buf), "%d.%d",
+-			_libiconv_version >> 8, _libiconv_version & 0xff);
++			_LIBICONV_VERSION >> 8, _LIBICONV_VERSION & 0xff);
+ 		version = buf;
+ 	}
+ #elif HAVE_GLIBC_ICONV
