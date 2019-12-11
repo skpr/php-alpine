@@ -66,9 +66,6 @@ makedepends="
   "
 
 source="https://php.net/distributions/$_pkgreal-$pkgver.tar.xz
-  config.m4.patch
-  disabled-tests.list
-  iconv.c.patch
   install-pear.patch
   pear.patch
   php-fpm.initd
@@ -611,9 +608,6 @@ _mv() {
   mv $@
 }
 sha512sums="e49eaf1f0811098910beddc407d5047e09a0f528baf4b62f2a42e8faba9d3d7a0ae82a0fd7a5bec265e22ef1bcf0cdcc4e9f0a521258412405923800798cba66  php-7.4.2.tar.xz
-2c3a2d9fa169ce96ba02beebced6fc1e1f63370baff9a8254e07be3c6f204cd3cbeb4978beeefc443d74d6b79a1fcaec11fe0b2b501b54fcaff763734c231b49  config.m4.patch
-cd76bd6a6a222e17ba50a11d292925966e30532a464ad2807d8ae5a8c510c63eeb494291f0b0ce1d287f13659d290550d001e77b2fc50c70c3ec175b204a37a7  disabled-tests.list
-ae26374289e5d3336ed6d0f741762a36b545bba19461d69b849b36476729da6ffaf38a7800654d8e6ab9dd2c1695fcb2d1e54c24dde5afca3296d841d9de8ab8  iconv.c.patch
 1eb894661d4a9cb7cb07d2c507f8b6a52cd62dac18f73c31f2c2bf6f7e7b0c185b74a542481a29cef4236353cf278bd86aa183663d5999f0b8df8c7623366c2b  install-pear.patch
 8a793255617a1b48a6e1dbc04ca3740c1214827c5d549c16fd9756ba7302d64b75a415e81516522af1ae98ef0e18d06573deaa017b484b15523a2d1944ef015a  pear.patch
 1d2de57f1ec53f6ac4ca2ba858b00f5c8b1f9c3a8bf2a87566fdbf3d5ff26105d1ab979948d48abb0a9ba1a835af37372341ab6361bf768a3ee77b75a02e0d1b  php-fpm.initd
