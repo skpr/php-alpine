@@ -67,7 +67,6 @@ makedepends="
 
 source="https://php.net/distributions/$_pkgreal-$pkgver.tar.xz
   config.m4.patch
-  config9.m4.patch
   disabled-tests.list
   iconv.c.patch
   install-pear.patch
