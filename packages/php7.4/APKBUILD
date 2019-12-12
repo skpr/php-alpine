@@ -63,7 +63,7 @@ makedepends="
   tidyhtml-dev
   unixodbc-dev
   zlib-dev
-  oniguruma
+  oniguruma-dev
   "
 
 source="https://php.net/distributions/$_pkgreal-$pkgver.tar.xz
