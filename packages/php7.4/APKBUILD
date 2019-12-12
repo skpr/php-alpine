@@ -155,9 +155,10 @@ esac
 prepare() {
   cd "$builddir"
 
-  default_prepare
-  ./buildconf --force
-  update_config_sub
+  # https://github.com/codecasts/php-alpine/blob/master/scripts/v3.10/php-7.4/php7/APKBUILD#L68
+  default_prepare || return 1
+  # No need to update config.sub
+  # update_config_sub || return 1
 
   local vapi=$(sed -n '/#define PHP_API_VERSION/{s/.* //;p}' main/php.h)
   if [ "$vapi" != "$_apiver" ]; then
