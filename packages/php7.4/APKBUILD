@@ -45,7 +45,6 @@ makedepends="
   libical-dev
   libjpeg-turbo-dev
   libpng-dev
-  libressl-dev
   libsodium-dev
   libtool
   libwebp-dev
