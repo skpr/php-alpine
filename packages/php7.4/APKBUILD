@@ -65,6 +65,8 @@ makedepends="
   zlib-dev
   oniguruma-dev
   openssl-dev
+  libgcrypt-dev
+  libgpg-error-dev
   "
 
 source="https://php.net/distributions/$_pkgreal-$pkgver.tar.xz
