@@ -23,13 +23,11 @@ make keys
 ```
 make ALPINE=3.9 PHP=7.3
 make ALPINE=3.9 PHP=7.2
-make ALPINE=3.9 PHP=7.1
 ```
 
 ```
 make ALPINE=3.8 PHP=7.3
 make ALPINE=3.8 PHP=7.2
-make ALPINE=3.8 PHP=7.1
 ```
 
 ## Thankyou
