@@ -62,14 +62,11 @@ jobs:
     environment:
       ALPINE: "3.8"
       PHP:    "7.3"
-<<<<<<< HEAD
   test_38_php_74:
     <<: *test
     environment:
       ALPINE: "3.8"
       PHP:    "7.4"
-=======
->>>>>>> master
   test_39_php_72:
     <<: *test
     environment:
@@ -80,14 +77,11 @@ jobs:
     environment:
       ALPINE: "3.9"
       PHP:    "7.3"
-<<<<<<< HEAD
   test_39_php_74:
     <<: *test
     environment:
       ALPINE: "3.9"
       PHP:    "7.4"
-=======
->>>>>>> master
   test_310_php_72:
     <<: *test
     environment:
@@ -98,14 +92,11 @@ jobs:
     environment:
       ALPINE: "3.10"
       PHP:    "7.3"
-<<<<<<< HEAD
   test_310_php_74:
     <<: *test
     environment:
       ALPINE: "3.10"
       PHP:    "7.4"
-=======
->>>>>>> master
   release_38_php_72:
     <<: *release
     environment:
@@ -116,14 +107,11 @@ jobs:
     environment:
       ALPINE: "3.8"
       PHP:    "7.3"
-<<<<<<< HEAD
   release_38_php_74:
     <<: *release
     environment:
       ALPINE: "3.8"
       PHP:    "7.4"
-=======
->>>>>>> master
   release_39_php_72:
     <<: *release
     environment:
@@ -134,14 +122,11 @@ jobs:
     environment:
       ALPINE: "3.9"
       PHP:    "7.3"
-<<<<<<< HEAD
   release_39_php_74:
     <<: *release
     environment:
       ALPINE: "3.9"
       PHP:    "7.4"
-=======
->>>>>>> master
   release_310_php_72:
     <<: *release
     environment:
@@ -169,13 +154,10 @@ workflows:
           filters:
             branches:
               ignore: master
-<<<<<<< HEAD
       - test_38_php_74:
           filters:
             branches:
               ignore: master
-=======
->>>>>>> master
       - test_39_php_72:
           filters:
             branches:
@@ -184,13 +166,10 @@ workflows:
           filters:
             branches:
               ignore: master
-<<<<<<< HEAD
       - test_39_php_74:
           filters:
             branches:
               ignore: master
-=======
->>>>>>> master
       - test_310_php_72:
           filters:
             branches:
@@ -199,13 +178,10 @@ workflows:
           filters:
             branches:
               ignore: master
-<<<<<<< HEAD
       - test_310_php_74:
           filters:
             branches:
               ignore: master
-=======
->>>>>>> master
       - release_38_php_72:
           filters:
             branches:
@@ -214,13 +190,10 @@ workflows:
           filters:
             branches:
               only: master
-<<<<<<< HEAD
       - release_38_php_74:
           filters:
             branches:
               only: master
-=======
->>>>>>> master
       - release_39_php_72:
           filters:
             branches:
@@ -229,13 +202,10 @@ workflows:
           filters:
             branches:
               only: master
-<<<<<<< HEAD
       - release_39_php_74:
           filters:
             branches:
               only: master
-=======
->>>>>>> master
       - release_310_php_72:
           filters:
             branches:
