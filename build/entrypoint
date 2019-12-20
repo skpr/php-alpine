@@ -8,6 +8,8 @@ SOURCE=/packages
 OUTPUT=/_output/packages/x86_64
 
 packages="
+gnu-libiconv
+libxlsxwriter
 php${VERSION}
 php${VERSION}-apcu
 php${VERSION}-memcached
