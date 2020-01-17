@@ -1,0 +1,30 @@
+diff --git a/include/syslog.h b/include/syslog.h
+index 5b4d2964..2c97c31e 100644
+--- a/include/syslog.h
++++ b/include/syslog.h
+@@ -62,7 +62,7 @@ int setlogmask (int);
+ void syslog (int, const char *, ...);
+ 
+ #if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+-#define _PATH_LOG "/dev/log"
++#define _PATH_LOG "/var/run/skpr/log"
+ #define __NEED_va_list
+ #include <bits/alltypes.h>
+ void vsyslog (int, const char *, va_list);
+diff --git a/src/misc/syslog.c b/src/misc/syslog.c
+index 13d4b0a6..07bb47b6 100644
+--- a/src/misc/syslog.c
++++ b/src/misc/syslog.c
+@@ -29,10 +29,10 @@ int setlogmask(int maskpri)
+ 
+ static const struct {
+ 	short sun_family;
+-	char sun_path[9];
++	char sun_path[18];
+ } log_addr = {
+ 	AF_UNIX,
+-	"/dev/log"
++	"/var/run/skpr/log"
+ };
+ 
+ void closelog(void)
