@@ -4,8 +4,8 @@ PHP=7.3
 BUILD_IMAGE=skpr-abuild:latest
 
 build: image
-  # @todo, Make sure keys exist.
-	docker container run -it --rm -v $(CURDIR)/packages:/packages \
+	# @todo, Make sure keys exist.
+	docker container run -it  -v $(CURDIR)/packages:/packages \
                                 -v $(CURDIR)/_output/$(ALPINE)/php$(PHP)/x86_64:/_output/packages/x86_64 \
                                 $(BUILD_IMAGE) $(PHP)
 
