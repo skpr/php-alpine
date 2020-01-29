@@ -24,3 +24,4 @@ package() {
   cd "$builddir"
   make INSTALL_DIR="$pkgdir/usr" install
 }
+sha512sums="b4de99605c9f3b8d7038e7ac49979bdb1998016e04e474008a4f086f5f42e072ab977a70f408b0a348f1ae1ce999a3d9d415961288797ab6ae56d84767f2c5c4  libxlsxwriter-0.8.4.tar.gz"
