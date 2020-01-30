@@ -73,6 +73,7 @@ _exts="
 	enchant
 	exif
 	ftp
+	fileinfo
 	gd
 	gettext
 	gmp
@@ -99,6 +100,7 @@ _exts="
 	posix
 	pspell
 	session
+	simplexml
 	shmop
 	snmp
 	soap
@@ -109,8 +111,10 @@ _exts="
 	sysvsem
 	sysvshm
 	tidy
+	tokenizer
 	xml
 	xmlreader
+	xmlwriter
 	xmlrpc
 	xsl
 	zip
@@ -200,7 +204,8 @@ build() {
 		--with-pgsql=shared --with-pdo-pgsql=shared \
 		--with-unixODBC=shared,/usr -with-pdo-odbc=shared,unixODBC,/usr \
 		--with-dbmaker=shared \
-		--enable-opcache=shared \
+		--enable-fileinfo=shared \
+        --enable-opcache=shared \
 		--enable-pdo=shared \
 		--enable-pcntl=shared \
 		--enable-posix=shared \
@@ -216,9 +221,12 @@ build() {
 		--enable-sysvmsg=shared \
 		--enable-sysvsem=shared \
 		--enable-sysvshm=shared \
-		--with-tidy=shared \
+		--enable-tokenizer=shared \
+        --with-tidy=shared \
 		--enable-xml=shared \
 		--enable-xmlreader=shared \
+		--enable-xmlwriter=shared \
+		--enable-simplexml=shared \
 		--with-xmlrpc=shared \
 		--with-xsl=shared \
 		--with-zip=shared \
