@@ -30,7 +30,7 @@ package() {
     install -d $pkgdir/ || return 1
     make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
     install -d "$pkgdir"/etc/php/conf.d || return 1
-    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/00_$_pkgreal.ini || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
 sha512sums="278bf71a0a1eace636ee09b86f9c1e732eae6d1d3548c3556395f6bba2d4bb7553999b5c00df35fdc88ff1bd3e5743367b866febb22b2efb3aa3d38504854ae2  xdebug-2.9.1.tgz"

@@ -54,6 +54,6 @@ package() {
   install -d $pkgdir/
   make -C "$builddir" INSTALL_ROOT="$pkgdir" install
   install -d "$pkgdir"/etc/php/$_phpver/conf.d
-  echo "extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/$_pkgreal.ini
+  echo "extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/01_$_pkgreal.ini
 }
 sha512sums="b6325e5e1f9209a3431cbc236dab4578f796aa748481f9a3fcda6d297bf544b0f77269bc56c6e9ff32430dbe74bd08f6d22e9b04b0ecfb735aa562f680f56f8b  redis-4.2.0.tgz"

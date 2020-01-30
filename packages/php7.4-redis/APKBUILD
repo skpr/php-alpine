@@ -30,7 +30,7 @@ package() {
     install -d $pkgdir/ || return 1
     make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
     install -d "$pkgdir"/etc/php/conf.d || return 1
-    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/20_$_pkgreal.ini || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
 sha512sums="eb6aa538d2ae4115634fd5841e3ccccf788cad13b99e0485fb2af43def85e93328012e5cef66d1be4bdd494be6f68de329a066e41b710e434f94f3ed3401bfee  redis-5.1.1.tgz"

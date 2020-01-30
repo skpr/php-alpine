@@ -54,6 +54,6 @@ package() {
   install -d $pkgdir/
   make -C "$builddir" INSTALL_ROOT="$pkgdir" install
   install -d "$pkgdir"/etc/php/$_phpver/conf.d
-  echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/$_pkgreal.ini
+  echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/01_$_pkgreal.ini
 }
 sha512sums="4872b4cec44eab8cd03309dad854c8a35e159474deb7d3fcbc8f12764fa88e761e3bdc04d7f94425aa14f0a57bdfd52f7a2c88715b2f3e385eacadadcfd79888  xdebug-2.7.0beta1.tgz"

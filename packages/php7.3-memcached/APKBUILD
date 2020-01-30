@@ -53,6 +53,6 @@ package() {
   install -d $pkgdir/
   make -C "$builddir" INSTALL_ROOT="$pkgdir" install
   install -d "$pkgdir"/etc/php/$_phpver/conf.d
-  echo "extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/$_pkgreal.ini
+  echo "extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/01_$_pkgreal.ini
 }
 sha512sums="9c09648c26011c5e749bee1a556c976e6e5e648dc65580e7caa296dab79e3764edf1408f96edcaca5efb0229320c86fcfa0422e55d486beb6466892f7e08c4a3  memcached-3.1.3.tgz"
