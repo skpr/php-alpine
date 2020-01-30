@@ -52,26 +52,6 @@ release: &release
           rm -f build/.abuild/skpr.rsa.priv
 
 jobs:
-  test_38_php_72:
-    <<: *test
-    environment:
-      ALPINE: "3.8"
-      PHP:    "7.2"
-  test_38_php_73:
-    <<: *test
-    environment:
-      ALPINE: "3.8"
-      PHP:    "7.3"
-  test_39_php_72:
-    <<: *test
-    environment:
-      ALPINE: "3.9"
-      PHP:    "7.2"
-  test_39_php_73:
-    <<: *test
-    environment:
-      ALPINE: "3.9"
-      PHP:    "7.3"
   test_310_php_72:
     <<: *test
     environment:
@@ -82,26 +62,28 @@ jobs:
     environment:
       ALPINE: "3.10"
       PHP:    "7.3"
-  release_38_php_72:
-    <<: *release
+  test_310_php_74:
+    <<: *test
     environment:
-      ALPINE: "3.8"
+      ALPINE: "3.10"
+      PHP:    "7.4"
+
+  test_311_php_72:
+    <<: *test
+    environment:
+      ALPINE: "3.11"
       PHP:    "7.2"
-  release_38_php_73:
-    <<: *release
+  test_311_php_73:
+    <<: *test
     environment:
-      ALPINE: "3.8"
+      ALPINE: "3.11"
       PHP:    "7.3"
-  release_39_php_72:
-    <<: *release
+  test_311_php_74:
+    <<: *test
     environment:
-      ALPINE: "3.9"
-      PHP:    "7.2"
-  release_39_php_73:
-    <<: *release
-    environment:
-      ALPINE: "3.9"
-      PHP:    "7.3"
+      ALPINE: "3.11"
+      PHP:    "7.4"
+
   release_310_php_72:
     <<: *release
     environment:
@@ -112,26 +94,32 @@ jobs:
     environment:
       ALPINE: "3.10"
       PHP:    "7.3"
+  release_310_php_74:
+    <<: *release
+    environment:
+      ALPINE: "3.10"
+      PHP:    "7.4"
+
+  release_311_php_72:
+    <<: *release
+    environment:
+      ALPINE: "3.11"
+      PHP:    "7.2"
+  release_311_php_73:
+    <<: *release
+    environment:
+      ALPINE: "3.11"
+      PHP:    "7.3"
+  release_311_php_74:
+    <<: *release
+    environment:
+      ALPINE: "3.11"
+      PHP:    "7.4"
+
 workflows:
   version: 2
   release:
     jobs:
-      - test_38_php_72:
-          filters:
-            branches:
-              ignore: master
-      - test_38_php_73:
-          filters:
-            branches:
-              ignore: master
-      - test_39_php_72:
-          filters:
-            branches:
-              ignore: master
-      - test_39_php_73:
-          filters:
-            branches:
-              ignore: master
       - test_310_php_72:
           filters:
             branches:
@@ -140,27 +128,46 @@ workflows:
           filters:
             branches:
               ignore: master
-      - release_38_php_72:
+      - test_310_php_74:
           filters:
             branches:
-              only: master
-      - release_38_php_73:
+              ignore: master
+
+      - test_311_php_72:
           filters:
             branches:
-              only: master
-      - release_39_php_72:
+              ignore: master
+      - test_311_php_73:
           filters:
             branches:
-              only: master
-      - release_39_php_73:
+              ignore: master
+      - test_311_php_74:
           filters:
             branches:
-              only: master
+              ignore: master
+
       - release_310_php_72:
           filters:
             branches:
               only: master
       - release_310_php_73:
+          filters:
+            branches:
+              only: master
+      - release_310_php_74:
+          filters:
+            branches:
+              only: master
+
+      - release_311_php_72:
+          filters:
+            branches:
+              only: master
+      - release_311_php_73:
+          filters:
+            branches:
+              only: master
+      - release_311_php_74:
           filters:
             branches:
               only: master

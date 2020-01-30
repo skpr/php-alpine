@@ -15,7 +15,6 @@ php${VERSION}-apcu
 php${VERSION}-memcached
 php${VERSION}-redis
 php${VERSION}-xdebug
-php${VERSION}-yaml
 "
 
 sudo chown -R packager:abuild $SOURCE
