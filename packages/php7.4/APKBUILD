@@ -2,7 +2,7 @@
 
 pkgname=php7.4
 pkgrel=1
-pkgver=7.4.3
+pkgver=7.4.4
 pkgdesc="The PHP language runtime engine - 7th branch"
 url="http://www.php.net/"
 arch="x86_64"
