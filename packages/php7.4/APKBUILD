@@ -2,7 +2,7 @@
 
 pkgname=php7.4
 pkgrel=1
-pkgver=7.4.2
+pkgver=7.4.4
 pkgdesc="The PHP language runtime engine - 7th branch"
 url="http://www.php.net/"
 arch="x86_64"
@@ -69,7 +69,7 @@ _exts="
 	ctype
 	curl
 	dba
-	dom 
+	dom
 	enchant
 	exif
 	ftp
@@ -120,7 +120,7 @@ _exts="
 	zip
 	zlib
 	"
-	
+
 subpackages="
 	$pkgname-dev
 	$pkgname-doc
@@ -255,11 +255,11 @@ package() {
 
 dev() {
 	default_dev
-	
+
 	depends="$depends $pkgname>=7.4.0 $pkgname<7.5.0 $pkgname-pear>=7.4.0 $pkgname-pear<7.5.0"
 	provides="php-dev=$pkgver-r$pkgrel php7-dev=$pkgver-r$pkgrel"
 	replaces="php-dev php7-dev"
-	
+
 	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/usr/lib/php
 
 	echo "pkgdir = $pkgdir"
@@ -285,7 +285,7 @@ doc() {
 
 fpm() {
 	pkgdesc="PHP FastCGI Process Manager"
-	
+
 	depends="$pkgname-common>=7.4.0 $pkgname-common<7.5.0"
 	provides="php-fpm=$pkgver-r$pkgrel php7-fpm=$pkgver-r$pkgrel"
 	replaces="php-fpm php7-fpm"
@@ -309,7 +309,7 @@ fpm() {
 
 pear() {
 	pkgdesc="PHP Extension and Application Repository"
-	
+
 	depends="$pkgname>=7.4.0 $pkgname<7.5.0 $pkgname-xml>=7.4.0 $pkgname-xml<7.5.0"
 	provides="php-pear=$pkgver-r$pkgrel php7-pear=$pkgver-r$pkgrel"
 	replaces="php-pear php7-pear"
@@ -360,9 +360,9 @@ depends_xsl="$pkgname-dom>=7.4.0 $pkgname-dom<7.5.0"
 _package_ext() {
 	local extname="${subpkgname#$pkgname-}"
 	local extdepends="$(eval "echo \$depends_$extname")"
-	
+
 	pkgdesc="PHP7 extension: $extname"
-	
+
 	depends="$depends $extdepends"
 	provides="php-$extname=$pkgver-r$pkgrel php7-$extname=$pkgver-r$pkgrel"
   	replaces="php-$extname php7-$extname"
