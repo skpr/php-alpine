@@ -14,7 +14,7 @@ php-versions: &php-versions
   - "7.4"
 
 jobs:
-  test:
+  build:
     parameters:
       alpine:
         type: string
@@ -76,9 +76,9 @@ jobs:
             rm -f build/.abuild/skpr.rsa.priv
 
 workflows:
-  test:
+  build:
     jobs:
-      - test:
+      - build:
           filters:
             branches:
               ignore: master
