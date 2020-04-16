@@ -4,170 +4,96 @@ orbs:
   aws-s3: circleci/aws-s3@1.0.4
   aws-cli: circleci/aws-cli@0.1.1
 
-test: &test
-  machine: true
-  steps:
-    - checkout
-    - run: make keys
-    - run:
-        name: Build
-        command: |
-          echo "Building alpine $ALPINE php"
-          make build ALPINE=$ALPINE PHP=$PHP
+alpine-versions: &alpine-versions
+  - "3.10"
+  - "3.11"
 
-release: &release
-  machine: true
-  steps:
-    - checkout
-    - aws-cli/install
-    - run:
-        name: Decrypt Keys
-        command: |
-          aws kms decrypt \
-            --ciphertext-blob fileb://<(cat build/.abuild/skpr.rsa.asc | base64 --decode) \
-            --output text \
-            --query Plaintext | base64 --decode > build/.abuild/skpr.rsa.priv
-    - run:
-        name: Build
-        command: |
-          echo "Building alpine $ALPINE php $PHP"
-          make build ALPINE=$ALPINE PHP=$PHP
-    - aws-s3/sync:
-        from: _output/${ALPINE}/php${PHP}
-        to: 's3://package-skpr-io/php-alpine/${ALPINE}/php${PHP}'
-        arguments: --acl public-read --cache-control "max-age=86400"
-        overwrite: true
-    - aws-s3/copy:
-        from: build/.abuild/skpr.rsa.pub
-        to: 's3://package-skpr-io/php-alpine/skpr.rsa.pub'
-    - run:
-        name: Invalidate
-        command: aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths /php-alpine/${ALPINE}/php${PHP}/*
-    - run:
-        # This is probably not required.
-        # But we wouldn't be doing our due diligence as operators if we didn't
-        # try to clean this up.
-        name: Delete Private Key
-        command: |
-          rm -f build/.abuild/skpr.rsa.priv
+php-versions: &php-versions
+  - "7.2"
+  - "7.3"
+  - "7.4"
 
 jobs:
-  test_310_php_72:
-    <<: *test
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.2"
-  test_310_php_73:
-    <<: *test
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.3"
-  test_310_php_74:
-    <<: *test
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.4"
+  build:
+    parameters:
+      alpine:
+        type: string
+        default: "3.10"
+      php:
+        type: string
+        default: "7.2"
+    machine: true
+    steps:
+      - checkout
+      - run: make keys
+      - run:
+          name: Build
+          command: |
+            echo "Building alpine << parameters.alpine >> php << parameters.php >>"
+            make build ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
 
-  test_311_php_72:
-    <<: *test
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.2"
-  test_311_php_73:
-    <<: *test
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.3"
-  test_311_php_74:
-    <<: *test
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.4"
-
-  release_310_php_72:
-    <<: *release
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.2"
-  release_310_php_73:
-    <<: *release
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.3"
-  release_310_php_74:
-    <<: *release
-    environment:
-      ALPINE: "3.10"
-      PHP:    "7.4"
-
-  release_311_php_72:
-    <<: *release
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.2"
-  release_311_php_73:
-    <<: *release
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.3"
-  release_311_php_74:
-    <<: *release
-    environment:
-      ALPINE: "3.11"
-      PHP:    "7.4"
+  release:
+    parameters:
+      alpine:
+        type: string
+        default: ""
+      php:
+        type: string
+        default: ""
+    machine: true
+    steps:
+      - checkout
+      - aws-cli/install
+      - run:
+          name: Decrypt Keys
+          command: |
+            aws kms decrypt \
+              --ciphertext-blob fileb://<(cat build/.abuild/skpr.rsa.asc | base64 --decode) \
+              --output text \
+              --query Plaintext | base64 --decode > build/.abuild/skpr.rsa.priv
+      - run:
+          name: Build
+          command: |
+            echo "Building alpine << parameters.alpine >> php << parameters.php >>"
+            make build ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
+      - aws-s3/sync:
+          from: _output/<< parameters.alpine >>/php<< parameters.php >>
+          to: 's3://package-skpr-io/php-alpine/<< parameters.alpine >>/php<< parameters.php >>'
+          arguments: --acl public-read --cache-control "max-age=86400"
+          overwrite: true
+      - aws-s3/copy:
+          from: build/.abuild/skpr.rsa.pub
+          to: 's3://package-skpr-io/php-alpine/skpr.rsa.pub'
+      - run:
+          name: Invalidate
+          command: aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths /php-alpine/<< parameters.alpine >>/php<< parameters.php >>/*
+      - run:
+          # This is probably not required.
+          # But we wouldn't be doing our due diligence as operators if we didn't
+          # try to clean this up.
+          name: Delete Private Key
+          command: |
+            rm -f build/.abuild/skpr.rsa.priv
 
 workflows:
-  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore: master
+          matrix:
+            parameters:
+              alpine: *alpine-versions
+              php: *php-versions
+
   release:
     jobs:
-      - test_310_php_72:
-          filters:
-            branches:
-              ignore: master
-      - test_310_php_73:
-          filters:
-            branches:
-              ignore: master
-      - test_310_php_74:
-          filters:
-            branches:
-              ignore: master
-
-      - test_311_php_72:
-          filters:
-            branches:
-              ignore: master
-      - test_311_php_73:
-          filters:
-            branches:
-              ignore: master
-      - test_311_php_74:
-          filters:
-            branches:
-              ignore: master
-
-      - release_310_php_72:
+      - release:
           filters:
             branches:
               only: master
-      - release_310_php_73:
-          filters:
-            branches:
-              only: master
-      - release_310_php_74:
-          filters:
-            branches:
-              only: master
-
-      - release_311_php_72:
-          filters:
-            branches:
-              only: master
-      - release_311_php_73:
-          filters:
-            branches:
-              only: master
-      - release_311_php_74:
-          filters:
-            branches:
-              only: master
+          matrix:
+            parameters:
+              alpine: *alpine-versions
+              php: *php-versions
