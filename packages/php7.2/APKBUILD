@@ -1,7 +1,7 @@
 pkgname=php7.2
 _pkgreal=php
 _phpver=7.2
-pkgver=7.2.29
+pkgver=7.2.30
 pkgrel=0
 _apiver=20170718
 pkgdesc="The PHP $_phpver language runtime engine"
