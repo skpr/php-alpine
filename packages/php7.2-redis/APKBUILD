@@ -1,4 +1,4 @@
-pkgver=4.3.0
+pkgver=5.3.2
 pkgrel=2
 _phpver=7.2
 _php=php$_phpver
@@ -56,4 +56,4 @@ package() {
   install -d "$pkgdir"/etc/php/$_phpver/conf.d
   echo "extension=$_pkgreal" > "$pkgdir"/etc/php/$_phpver/conf.d/01_$_pkgreal.ini
 }
-sha512sums="b6325e5e1f9209a3431cbc236dab4578f796aa748481f9a3fcda6d297bf544b0f77269bc56c6e9ff32430dbe74bd08f6d22e9b04b0ecfb735aa562f680f56f8b  redis-4.2.0.tgz"
+sha512sums="95ce960b78cf94ecd212ec88914935167af37e4176d4b111dfc8c6f1a0846a34beba7f9f516cd7a5e1c9dda23f46cce44c99aaa5b42724c0c2a188b0698af414  redis-5.3.2.tgz"
