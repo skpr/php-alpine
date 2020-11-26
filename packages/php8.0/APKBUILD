@@ -135,7 +135,7 @@ for _ext in $_exts; do
 done
 subpackages="$subpackages $pkgname-common::noarch"
 
-_apiver="20190902"
+_apiver="20200930"
 
 prepare() {
 	cd "$builddir"
