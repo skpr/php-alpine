@@ -114,7 +114,6 @@ _exts="
 	xml
 	xmlreader
 	xmlwriter
-	xmlrpc
 	xsl
 	zip
 	zlib
