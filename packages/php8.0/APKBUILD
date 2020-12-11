@@ -80,7 +80,6 @@ _exts="
 	iconv
 	imap
 	intl
-	json
 	ldap
 	mbstring
 	mysqli
