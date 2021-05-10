@@ -8,6 +8,7 @@ SOURCE=/packages
 OUTPUT=/_output/packages/x86_64
 
 packages="
+enchant
 gnu-libiconv
 libxlsxwriter
 php${VERSION}

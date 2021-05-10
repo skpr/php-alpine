@@ -3,7 +3,7 @@ FROM alpine:${ALPINE_VERSION}
 
 ENV GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
-RUN apk add --no-cache alpine-sdk \
+RUN apk add --no-cache alpine-sdk sudo \
     && adduser -D -g '' -u 1000 -G abuild packager \
     && echo "packager ALL=(ALL) ALL" >> /etc/sudoers \
     && echo "packager ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
