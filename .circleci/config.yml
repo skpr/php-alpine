@@ -7,6 +7,7 @@ orbs:
 alpine-versions: &alpine-versions
   - "3.11"
   - "3.12"
+  - "3.13"
 
 php-versions: &php-versions
   - "7.3"
