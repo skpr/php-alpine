@@ -2,7 +2,7 @@
 
 pkgname=php7.4-xdebug
 _pkgreal=xdebug
-pkgver=2.9.1
+pkgver=2.9.8
 pkgrel=1
 provides="php-xdebug=7.4"
 pkgdesc="xDebug Profiler"
