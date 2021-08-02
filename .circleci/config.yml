@@ -60,8 +60,7 @@ jobs:
       - aws-s3/sync:
           from: _output/<< parameters.alpine >>/php<< parameters.php >>
           to: 's3://package-skpr-io/php-alpine/<< parameters.alpine >>/php<< parameters.php >>'
-          arguments: --acl public-read --cache-control "max-age=86400"
-          overwrite: true
+          arguments: --acl public-read --cache-control "max-age=86400" --delete
       - aws-s3/copy:
           from: build/.abuild/skpr.rsa.pub
           to: 's3://package-skpr-io/php-alpine/skpr.rsa.pub'
