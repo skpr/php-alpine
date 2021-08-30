@@ -5,9 +5,8 @@ orbs:
   aws-cli: circleci/aws-cli@2.0
 
 alpine-versions: &alpine-versions
-  - "3.11"
-  - "3.12"
   - "3.13"
+  - "3.14"
 
 php-versions: &php-versions
   - "7.3"
