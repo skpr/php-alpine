@@ -1,5 +1,5 @@
-ALPINE=3.9
-PHP=7.3
+ALPINE=3.14
+PHP=8.1
 
 BUILD_IMAGE=skpr-abuild:latest
 

@@ -13,7 +13,6 @@ gnu-libiconv
 libxlsxwriter
 php${VERSION}
 php${VERSION}-apcu
-php${VERSION}-memcached
 php${VERSION}-redis
 php${VERSION}-xdebug
 "

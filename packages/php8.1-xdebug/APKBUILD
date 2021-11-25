@@ -1,16 +1,16 @@
 # Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
 
-pkgname=php7.4-memcached
-_pkgreal=memcached
-pkgver=3.1.5
+pkgname=php8.1-xdebug
+_pkgreal=xdebug
+pkgver=3.1.1
 pkgrel=1
-provides="php-memcached=7.4"
-pkgdesc="Memcached extension for PHP"
+provides="php-xdebug=8.1"
+pkgdesc="xDebug Profiler"
 url="http://pecl.php.net/package/$_pkgreal"
 arch="x86_64"
-license="PHP-3"
-depends="php7.4-common>=7.4.0 php7.4-common<7.5.0 php7.4-session>=7.4.0 php7.4-session<7.5.0"
-makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf zlib-dev libmemcached-dev cyrus-sasl-dev pcre-dev"
+license="XDEBUG-1"
+depends="php8.1-common>=8.1.0 php8.1-common<8.2.0"
+makedepends="php8.1-dev>=8.1.0 php8.1-dev<8.2.0 autoconf"
 source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 
@@ -30,7 +30,7 @@ package() {
     install -d $pkgdir/ || return 1
     make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
     install -d "$pkgdir"/etc/php/conf.d || return 1
-    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/20_$_pkgreal.ini || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="87d5fd079fcaad81139785d6766da71b23a1a0fe907d4b22f3a787af148a20412c11df11c4d98c165241658baf0d87c8a6b29de15db07a0f9d1fabc8aec8f0e9  memcached-3.1.5.tgz"
+sha512sums="faa1ed9ad348ec5993ed1883dec2df9b331a158d4b9ae09df0a89be81a5651d51fe67a0a4f7af88d2e20a0e29babf294c98b0dbf289c10f5c0abf0be1c091e8b  xdebug-3.0.1.tgz"
