@@ -254,7 +254,7 @@ package() {
 dev() {
 	default_dev
 
-	depends="$depends $pkgname>=8.1.0 $pkgname<8.1.0 $pkgname-pear>=8.1.0 $pkgname-pear<8.1.0"
+	depends="$depends $pkgname>=8.1.0 $pkgname<8.2.0 $pkgname-pear>=8.1.0 $pkgname-pear<8.2.0"
 	provides="php-dev=$pkgver-r$pkgrel php7-dev=$pkgver-r$pkgrel"
 	replaces="php-dev php7-dev"
 
@@ -284,7 +284,7 @@ doc() {
 fpm() {
 	pkgdesc="PHP FastCGI Process Manager"
 
-	depends="$pkgname-common>=8.1.0 $pkgname-common<8.1.0"
+	depends="$pkgname-common>=8.1.0 $pkgname-common<8.2.0"
 	provides="php-fpm=$pkgver-r$pkgrel php7-fpm=$pkgver-r$pkgrel"
 	replaces="php-fpm php7-fpm"
 
@@ -308,7 +308,7 @@ fpm() {
 pear() {
 	pkgdesc="PHP Extension and Application Repository"
 
-	depends="$pkgname>=8.1.0 $pkgname<8.1.0 $pkgname-xml>=8.1.0 $pkgname-xml<8.1.0"
+	depends="$pkgname>=8.1.0 $pkgname<8.2.0 $pkgname-xml>=8.1.0 $pkgname-xml<8.2.0"
 	provides="php-pear=$pkgver-r$pkgrel php7-pear=$pkgver-r$pkgrel"
 	replaces="php-pear php7-pear"
 
@@ -337,7 +337,7 @@ common() {
 }
 
 phar() {
-	depends="$pkgname>=8.1.0 $pkgname<8.1.0"
+	depends="$pkgname>=8.1.0 $pkgname<8.2.0"
     provides="php-phar=$pkgver-r$pkgrel php7-phar=$pkgver-r$pkgrel"
 	replaces="php-phar php7-phar"
 
@@ -346,14 +346,14 @@ phar() {
 	mv "$pkgdir"/usr/bin/phar* "$subpkgdir"/usr/bin/
 }
 
-depends_dom="$pkgname-xml>=8.1.0 $pkgname-xml<8.1.0"
-depends_mysqlnd="$pkgname-openssl>=8.1.0 $pkgname-openssl<8.1.0"
-depends_mysqli="$pkgname-mysqlnd>=8.1.0 $pkgname-mysqlnd<8.1.0"
-depends_pdo_mysql="$pkgname-mysqlnd>=8.1.0 $pkgname-mysqlnd<8.1.0"
-depends_soap="$pkgname-xml>=8.1.0 $pkgname-xml<8.1.0"
-depends_xmlreader="$pkgname-dom>=7..0 $pkgname-dom<8.1.0"
-depends_xmlrpc="$pkgname-xml>=8.1.0 $pkgname-xml<8.1.0"
-depends_xsl="$pkgname-dom>=8.1.0 $pkgname-dom<8.1.0"
+depends_dom="$pkgname-xml>=8.1.0 $pkgname-xml<8.2.0"
+depends_mysqlnd="$pkgname-openssl>=8.1.0 $pkgname-openssl<8.2.0"
+depends_mysqli="$pkgname-mysqlnd>=8.1.0 $pkgname-mysqlnd<8.2.0"
+depends_pdo_mysql="$pkgname-mysqlnd>=8.1.0 $pkgname-mysqlnd<8.2.0"
+depends_soap="$pkgname-xml>=8.1.0 $pkgname-xml<8.2.0"
+depends_xmlreader="$pkgname-dom>=7..0 $pkgname-dom<8.2.0"
+depends_xmlrpc="$pkgname-xml>=8.1.0 $pkgname-xml<8.2.0"
+depends_xsl="$pkgname-dom>=8.1.0 $pkgname-dom<8.2.0"
 
 _package_ext() {
 	local extname="${subpkgname#$pkgname-}"
@@ -366,7 +366,7 @@ _package_ext() {
   	replaces="php-$extname php7-$extname"
 
 	case "$extname" in
-	pdo_*) depends="$depends $pkgname-pdo>=8.1.0 $pkgname-pdo<8.1.0"
+	pdo_*) depends="$depends $pkgname-pdo>=8.1.0 $pkgname-pdo<8.2.0"
 	esac
 
 	# extension dependencies and loading order
