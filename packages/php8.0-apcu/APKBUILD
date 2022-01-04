@@ -7,7 +7,7 @@ pkgrel=1
 provides="php-apcu=8.0"
 pkgdesc="APCu - APC User Cache extension for PHP"
 url="http://pecl.php.net/package/$_pkgreal"
-arch="x86_64"
+arch="all"
 license="PHP-3"
 depends="php8.0-common>=8.0.0 php8.0-common<8.1.0"
 makedepends="php8.0-dev>=8.0.0 php8.0-dev<8.1.0 autoconf pcre2-dev"

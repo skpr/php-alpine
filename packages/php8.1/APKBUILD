@@ -5,7 +5,7 @@ pkgrel=1
 pkgver=8.1.1
 pkgdesc="The PHP language runtime engine - 7th branch"
 url="http://www.php.net/"
-arch="x86_64"
+arch="all"
 license="PHP-3"
 options=""
 depends="$pkgname-common>=8.1.0 $pkgname-common<8.2.0"
@@ -389,5 +389,7 @@ _package_ext() {
 		> "$subpkgdir"/etc/php/conf.d/${elo}_${extname}.ini
 }
 
-sha512sums="fc808d21d66178d9305cd869824c5f4d553b28557cef646e9f8056b10d3da97e1c8d3e93c4f4e5924f9aa801ca295ab98.1d1f6b9dbab1d8393a36740e139cdb  php-8.1.0.tar.bz2
-677c9b4b4bde04595c588ed19946d9f828683619506e315d6e69352f56589972283da2957807caaf26eb2eb1075e6889233ef667c2b866156320149c2452bcf0  install-pear.patch"
+   sha512sums="
+f3025e3fa2094fc7485a0e8c7c345980163c19b8d1fdc643fbcfde1249f63b85e5f770fc0435a7985884f44ddd4cfb51b4b95450d5ec31272f866eaa78d743d3  php-8.1.1.tar.bz2
+baeaa9168a0aaf7edc15da770e0cf00db9dba5763622ed58a1d8b3e6dacf8938913fbf3a3a2fac728b55e4ce2b92bfa07a19599b5ffd1f83a89e0b57fb7c4856  install-pear.patch
+"

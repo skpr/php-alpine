@@ -2,47 +2,55 @@
 
 set -e
 
-VERSION=$1
+PHP_VERSION=$1
+ARCH=$2
 
 SOURCE=/packages
-OUTPUT=/_output/packages/x86_64
+REPOSITORY=/_output/packages/${ARCH}
+
+sudo mkdir -p ${REPOSITORY}
+
+echo "Clearing Build Paths"
+sudo chown -R packager:abuild $SOURCE
+sudo chown -R packager:abuild $REPOSITORY
+
+echo "Clearing Build Paths"
+sudo rm -rf ${SOURCE}/*/pkg ${SOURCE}/*/src ${SOURCE}/*/tmp ${REPOSITORY}/*
+
+echo "Generating Index"
+generate-index ${ARCH}
+
+echo "Signing Index"
+abuild-sign -k ~/.abuild/skpr.rsa.priv ${REPOSITORY}/APKINDEX.tar.gz
+
+echo "Updating the index of available packages"
+sudo apk update
 
 packages="
 enchant
 gnu-libiconv
 libxlsxwriter
-php${VERSION}
-php${VERSION}-apcu
-php${VERSION}-redis
-php${VERSION}-xdebug
+php${PHP_VERSION}
+php${PHP_VERSION}-apcu
+php${PHP_VERSION}-redis
+php${PHP_VERSION}-xdebug
 "
 
-sudo chown -R packager:abuild $SOURCE
-sudo chown -R packager:abuild $OUTPUT
-sudo rm -rf ${SOURCE}/*/pkg ${SOURCE}/*/src ${SOURCE}/*/tmp ${OUTPUT}/*
-
-generate-index
-abuild-sign -k ~/.abuild/skpr.rsa.priv ${OUTPUT}/APKINDEX.tar.gz
-sudo apk update
-
 for package in $packages; do
+  echo "Building Package: ${package}"
+
   cd ${SOURCE}/$package
 
   # For PHP we also generate tmp directory for some temporary files
   rm -rf tmp
 
-  # Clean pkgdir and srcdir
+  echo "Clearing Build Paths"
   abuild clean
 
+  echo "Building Package"
   abuild checksum
   abuild -r -K
 
-  # Generate index with trusted signature
-  generate-index
-
-  # Clean packages with previous versions
-  abuild cleanoldpkg
-
-  # Regenerate index with trusted signature
-  generate-index
+  echo "Generating Index"
+  generate-index ${ARCH}
 done
