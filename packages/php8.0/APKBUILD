@@ -5,7 +5,7 @@ pkgrel=1
 pkgver=8.0.14
 pkgdesc="The PHP language runtime engine - 7th branch"
 url="http://www.php.net/"
-arch="x86_64"
+arch="all"
 license="PHP-3"
 options=""
 depends="$pkgname-common>=8.0.0 $pkgname-common<8.1.0"

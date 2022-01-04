@@ -7,7 +7,7 @@ pkgrel=3
 provides="php-redis=7.4"
 pkgdesc="Redis extension for PHP"
 url="http://pecl.php.net/package/$_pkgreal"
-arch="x86_64"
+arch="all"
 license="PHP-3"
 depends="php7.4-common>=7.4.0 php7.4-common<7.5.0 php7.4-session>=7.4.0 php7.4-session<7.5.0"
 makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf"

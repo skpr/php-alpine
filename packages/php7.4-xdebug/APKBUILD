@@ -7,7 +7,7 @@ pkgrel=1
 provides="php-xdebug=7.4"
 pkgdesc="xDebug Profiler"
 url="http://pecl.php.net/package/$_pkgreal"
-arch="x86_64"
+arch="all"
 license="XDEBUG-1"
 depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
 makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf"

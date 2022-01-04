@@ -4,12 +4,30 @@ orbs:
   aws-s3: circleci/aws-s3@3.0
   aws-cli: circleci/aws-cli@2.0
 
+executors:
+  amd64:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: medium
+    environment:
+      ARCH: x86_64
+
+  arm64:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
+    environment:
+      ARCH: aarch64
+
+platforms: &platforms
+  - amd64
+  - arm64
+
 alpine-versions: &alpine-versions
   - "3.13"
   - "3.14"
 
 php-versions: &php-versions
-  - "7.3"
   - "7.4"
   - "8.0"
   - "8.1"
@@ -19,29 +37,36 @@ jobs:
     parameters:
       alpine:
         type: string
-        default: "3.11"
       php:
         type: string
-        default: "7.4"
+      executor:
+        type: string
     machine: true
+    executor: << parameters.executor >>
     steps:
       - checkout
       - run: make keys
       - run:
           name: Build
           command: |
-            echo "Building alpine << parameters.alpine >> php << parameters.php >>"
-            make build ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
+            echo "Building alpine << parameters.alpine >> php << parameters.php >> arch ${ARCH}"
+            make build ARCH=${ARCH} ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
+      - store_artifacts:
+          path: build/.abuild/skpr.rsa.pub
+          destination: skpr.rsa.pub
+      - store_artifacts:
+          path: _output/<< parameters.alpine >>/php<< parameters.php >>
 
   release:
     parameters:
       alpine:
         type: string
-        default: ""
       php:
         type: string
-        default: ""
+      executor:
+        type: string
     machine: true
+    executor: << parameters.executor >>
     steps:
       - checkout
       - aws-cli/install
@@ -55,15 +80,19 @@ jobs:
       - run:
           name: Build
           command: |
-            echo "Building alpine << parameters.alpine >> php << parameters.php >>"
-            make build ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
-      - aws-s3/sync:
-          from: _output/<< parameters.alpine >>/php<< parameters.php >>
-          to: 's3://package-skpr-io/php-alpine/<< parameters.alpine >>/php<< parameters.php >>'
-          arguments: --acl public-read --cache-control "max-age=86400" --delete
-      - aws-s3/copy:
-          from: build/.abuild/skpr.rsa.pub
-          to: 's3://package-skpr-io/php-alpine/skpr.rsa.pub'
+            echo "Building alpine << parameters.alpine >> php << parameters.php >> arch ${ARCH}"
+            make build ARCH=${ARCH} ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
+      - run:
+          name: Sync
+          command: |
+            aws s3 sync --acl public-read \
+                        --cache-control "max-age=86400" \
+                        --delete \
+                        _output/<< parameters.alpine >>/php<< parameters.php >>/${ARCH} \
+                        s3://package-skpr-io/php-alpine/<< parameters.alpine >>/php<< parameters.php >>/${ARCH}
+
+            # Public key for validating repository pakages.
+            aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/skpr.rsa.pub
       - run:
           name: Invalidate
           command: aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths /php-alpine/<< parameters.alpine >>/php<< parameters.php >>/*
@@ -84,6 +113,7 @@ workflows:
               ignore: master
           matrix:
             parameters:
+              executor: *platforms
               alpine: *alpine-versions
               php: *php-versions
 
@@ -95,5 +125,6 @@ workflows:
               only: master
           matrix:
             parameters:
+              executor: *platforms
               alpine: *alpine-versions
               php: *php-versions
