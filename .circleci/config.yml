@@ -41,7 +41,6 @@ jobs:
         type: string
       executor:
         type: string
-    machine: true
     executor: << parameters.executor >>
     steps:
       - checkout
@@ -65,7 +64,6 @@ jobs:
         type: string
       executor:
         type: string
-    machine: true
     executor: << parameters.executor >>
     steps:
       - checkout
