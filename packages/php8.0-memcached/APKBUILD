@@ -12,7 +12,7 @@ license="PHP-3"
 depends="php8.0-common>=8.0.0 php8.0-common<8.1.0 php8.0-session>=8.0.0 php8.0-session<8.1.0"
 makedepends="php8.0-dev>=8.0.0 php8.0-dev<8.1.0 autoconf libmemcached-dev"
 source="https://pecl.php.net/get/$_pkgreal-3.2.0RC2.tgz"
-builddir="$srcdir/$_pkgreal-$pkgver"
+builddir="$srcdir/$_pkgreal-3.2.0RC2"
 
 prepare() {
 	default_prepare || return 1
