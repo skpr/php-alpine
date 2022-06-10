@@ -108,7 +108,7 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: master
+              ignore: main
           matrix:
             parameters:
               executor: *platforms
@@ -120,7 +120,7 @@ workflows:
       - release:
           filters:
             branches:
-              only: master
+              only: main
           matrix:
             parameters:
               executor: *platforms
