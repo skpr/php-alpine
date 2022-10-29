@@ -389,7 +389,7 @@ _package_ext() {
 		> "$subpkgdir"/etc/php/conf.d/${elo}_${extname}.ini
 }
 
-���sha512sums="
+  sha512sums="
 f3025e3fa2094fc7485a0e8c7c345980163c19b8d1fdc643fbcfde1249f63b85e5f770fc0435a7985884f44ddd4cfb51b4b95450d5ec31272f866eaa78d743d3  php-8.1.1.tar.bz2
 baeaa9168a0aaf7edc15da770e0cf00db9dba5763622ed58a1d8b3e6dacf8938913fbf3a3a2fac728b55e4ce2b92bfa07a19599b5ffd1f83a89e0b57fb7c4856  install-pear.patch
 "
