@@ -255,8 +255,8 @@ dev() {
 	default_dev
 
 	depends="$depends $pkgname>=8.2.0 $pkgname<8.3.0 $pkgname-pear>=8.2.0 $pkgname-pear<8.3.0"
-	provides="php-dev=$pkgver-r$pkgrel php7-dev=$pkgver-r$pkgrel"
-	replaces="php-dev php7-dev"
+	provides="php-dev=$pkgver-r$pkgrel php8-dev=$pkgver-r$pkgrel"
+	replaces="php-dev php8-dev"
 
 	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/usr/lib/php
 
@@ -270,8 +270,8 @@ dev() {
 doc() {
 	default_doc
 
-	provides="php-doc=$pkgver-r$pkgrel php7-doc=$pkgver-r$pkgrel"
-    replaces="php-doc php7-doc"
+	provides="php-doc=$pkgver-r$pkgrel php8-doc=$pkgver-r$pkgrel"
+    replaces="php-doc php8-doc"
 
 	mkdir -p "$subpkgdir"/usr/share/doc/php
 
@@ -284,9 +284,9 @@ doc() {
 fpm() {
 	pkgdesc="PHP FastCGI Process Manager"
 
-	depends="$pkgname-common>=8.2.0 $pkgname-common<8.2.0"
-	provides="php-fpm=$pkgver-r$pkgrel php7-fpm=$pkgver-r$pkgrel"
-	replaces="php-fpm php7-fpm"
+	depends="$pkgname-common>=8.2.0 $pkgname-common<8.3.0"
+	provides="php-fpm=$pkgver-r$pkgrel php8-fpm=$pkgver-r$pkgrel"
+	replaces="php-fpm php8-fpm"
 
 	mv "$pkgdir"/var "$subpkgdir"/ || return 1
 
@@ -309,8 +309,8 @@ pear() {
 	pkgdesc="PHP Extension and Application Repository"
 
 	depends="$pkgname>=8.2.0 $pkgname<8.3.0 $pkgname-xml>=8.2.0 $pkgname-xml<8.3.0"
-	provides="php-pear=$pkgver-r$pkgrel php7-pear=$pkgver-r$pkgrel"
-	replaces="php-pear php7-pear"
+	provides="php-pear=$pkgver-r$pkgrel php8-pear=$pkgver-r$pkgrel"
+	replaces="php-pear php8-pear"
 
 	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/etc/php
 
@@ -326,8 +326,8 @@ common() {
 	pkgdesc="$pkgdesc (common config)"
 
 	depends=""
-    provides="php-common=$pkgver-r$pkgrel php7-common=$pkgver-r$pkgrel"
-	replaces="php-common php7-common"
+    provides="php-common=$pkgver-r$pkgrel php8-common=$pkgver-r$pkgrel"
+	replaces="php-common php8-common"
 
 	mkdir -p "$subpkgdir"/usr
 	mv "$pkgdir"/usr/lib "$subpkgdir"/usr/ || return 1
@@ -338,8 +338,8 @@ common() {
 
 phar() {
 	depends="$pkgname>=8.2.0 $pkgname<8.3.0"
-    provides="php-phar=$pkgver-r$pkgrel php7-phar=$pkgver-r$pkgrel"
-	replaces="php-phar php7-phar"
+    provides="php-phar=$pkgver-r$pkgrel php8-phar=$pkgver-r$pkgrel"
+	replaces="php-phar php8-phar"
 
 	_package_ext || return 1
 	mkdir -p "$subpkgdir"/usr/bin
@@ -363,7 +363,7 @@ _package_ext() {
 
 	depends="$depends $extdepends"
 	provides="php-$extname=$pkgver-r$pkgrel php8-$extname=$pkgver-r$pkgrel"
-  	replaces="php-$extname php7-$extname"
+  	replaces="php-$extname php8-$extname"
 
 	case "$extname" in
 	pdo_*) depends="$depends $pkgname-pdo>=8.2.0 $pkgname-pdo<8.3.0"
