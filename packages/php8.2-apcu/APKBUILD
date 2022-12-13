@@ -2,7 +2,7 @@
 
 pkgname=php8.2-apcu
 _pkgreal=apcu
-pkgver=5.1.21
+pkgver=5.1.22
 pkgrel=1
 provides="php-apcu=8.2"
 pkgdesc="APCu - APC User Cache extension for PHP"

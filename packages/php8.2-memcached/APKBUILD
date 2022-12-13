@@ -2,7 +2,7 @@
 
 pkgname=php8.2-memcached
 _pkgreal=memcached
-pkgver=3.2.0_rc2
+pkgver=3.2.0
 pkgrel=1
 provides="php-memcached=8.2"
 pkgdesc="PHP extension for interfacing with memcached via libmemcached library"
