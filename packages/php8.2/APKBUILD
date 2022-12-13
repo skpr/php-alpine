@@ -98,7 +98,6 @@ _exts="
 	phar
 	posix
 	pspell
-	random
 	session
 	simplexml
 	shmop
@@ -351,7 +350,6 @@ depends_dom="$pkgname-xml>=8.2.0 $pkgname-xml<8.3.0"
 depends_mysqlnd="$pkgname-openssl>=8.2.0 $pkgname-openssl<8.3.0"
 depends_mysqli="$pkgname-mysqlnd>=8.2.0 $pkgname-mysqlnd<8.3.0"
 depends_pdo_mysql="$pkgname-mysqlnd>=8.2.0 $pkgname-mysqlnd<8.3.0"
-depends_random="$pkgname-random>=8.2.0 $pkgname-random<8.3.0"
 depends_soap="$pkgname-xml>=8.2.0 $pkgname-xml<8.3.0"
 depends_xmlreader="$pkgname-dom>=7..0 $pkgname-dom<8.3.0"
 depends_xmlrpc="$pkgname-xml>=8.2.0 $pkgname-xml<8.3.0"
