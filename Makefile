@@ -1,5 +1,5 @@
 ALPINE=3.14
-PHP=8.1
+PHP=8.2
 ARCH=x86_64
 
 BUILD_IMAGE=skpr-abuild:latest
