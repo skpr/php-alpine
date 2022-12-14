@@ -1,0 +1,38 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php8.2-xdebug
+_pkgreal=xdebug
+pkgver=3.2.0
+pkgrel=1
+provides="php-xdebug=8.2"
+pkgdesc="xDebug Profiler"
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="XDEBUG-1"
+depends="php8.2-common>=8.2.0 php8.2-common<8.3.0"
+makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+357acd17e1b74f39278d9fad6d1038c283d3b7a736c32c7188836815aa0f07eadd437cf4e06d8f03a724a13be28e7d72e7c3a6e9adda1335309ec12495d81392  xdebug-3.2.0.tgz
+"

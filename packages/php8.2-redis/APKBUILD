@@ -1,0 +1,38 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php8.2-redis
+_pkgreal=redis
+pkgver=5.3.7
+pkgrel=3
+provides="php-redis=8.2"
+pkgdesc="Redis extension for PHP"
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.2-common>=8.2.0 php8.2-common<8.3.0 php8.2-session>=8.2.0 php8.2-session<8.3.0"
+makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf"
+source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+c1270235b18544e651411ddfb512d74b7229e3dc241b2dfcdf97f2e26cf60754afb7deaac17bc48202875b5caafae19f31a7b8da980fcba578df51b0c0860a95  redis-5.3.4.tgz
+"
