@@ -1,0 +1,36 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php7.4-opentelemetry
+_pkgreal=opentelemetry
+pkgver=1.0.0beta1
+pkgrel=1
+provides="php-opentelemetry=7.4"
+pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
+makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf pcre2-dev"
+source="https://github.com/open-telemetry/opentelemetry-php/archive/refs/tags/${pkgver}.tar.gz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="6d91f0d6c2d9f0a3097d9511748512480e390bee9408adf1fb873e8bbb4959942dfdc8d93b7e6a4bab339899400856f7d4c717f4f9662e02567a4bc0f71da40f  1.0.0beta1.tar.gz"
