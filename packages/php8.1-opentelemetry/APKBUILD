@@ -2,7 +2,7 @@
 
 pkgname=php8.1-opentelemetry
 _pkgreal=opentelemetry
-pkgver=1.0.0beta1
+pkgver=1.0.0_beta1
 pkgrel=1
 provides="php-opentelemetry=8.1"
 pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
