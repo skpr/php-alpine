@@ -12,14 +12,13 @@ license="PHP-3"
 depends="php8.1-common>=8.1.0 php8.1-common<8.2.0 php8.1-session>=8.1.0 php8.1-session<8.2.0"
 makedepends="php8.1-dev>=8.1.0 php8.1-dev<8.2.0 autoconf libmemcached-dev"
 source="https://github.com/open-telemetry/opentelemetry-php/archive/refs/tags/1.0.0beta1.tar.gz"
-builddir="$srcdir/$_pkgreal-${pkgver}"
 
 prepare() {
 	default_prepare || return 1
 }
 
 build() {
-	cd "$builddir"
+	cd "$srcdir"
 	phpize || return 1
 	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
     make || return 1
@@ -28,7 +27,7 @@ build() {
 package() {
 	mkdir -p "$pkgdir" || return 1
     install -d $pkgdir/ || return 1
-    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    make -C "$srcdir" INSTALL_ROOT="$pkgdir" install || return 1
     install -d "$pkgdir"/etc/php/conf.d || return 1
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
