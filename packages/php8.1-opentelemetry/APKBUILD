@@ -1,18 +1,18 @@
 # Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
 
-pkgname=php7.4-opentelemetry
+pkgname=php8.1-opentelemetry
 _pkgreal=opentelemetry
 pkgver=1.0.0beta1
 pkgrel=1
-provides="php-opentelemetry=7.4"
+provides="php-opentelemetry=8.1"
 pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
 url="http://pecl.php.net/package/$_pkgreal"
 arch="all"
 license="PHP-3"
-depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
-makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf pcre2-dev"
+depends="php8.1-common>=8.1.0 php8.1-common<8.2.0 php8.1-session>=8.1.0 php8.1-session<8.2.0"
+makedepends="php8.1-dev>=8.1.0 php8.1-dev<8.2.0 autoconf libmemcached-dev"
 source="https://github.com/open-telemetry/opentelemetry-php/archive/refs/tags/${pkgver}.tar.gz"
-builddir="$srcdir/$_pkgreal-$pkgver"
+builddir="$srcdir/$_pkgreal-${pkgver}"
 
 prepare() {
 	default_prepare || return 1
