@@ -31,6 +31,7 @@ enchant
 gnu-libiconv
 libxlsxwriter
 php${PHP_VERSION}
+php${PHP_VERSION}-opentelemetry
 php${PHP_VERSION}-apcu
 php${PHP_VERSION}-redis
 php${PHP_VERSION}-memcached
