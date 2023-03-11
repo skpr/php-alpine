@@ -1,0 +1,36 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php7.4-grpc
+_pkgreal=grpc
+pkgver=1.47.4
+pkgrel=1
+provides="php-grpc=7.4"
+pkgdesc="A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
+makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="38c596f42245f57a0d30f4be32c818771d9f2b72297082b480d5b73640db2aeb059b471db9458bb6dd07cdd3a90bd62f98f5610292c1dd9db46f426a5906ec3e  grpc-1.47.4.tgz"

@@ -1,16 +1,16 @@
 # Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
 
-pkgname=php8.1-opentelemetry
+pkgname=php8.2-opentelemetry
 _pkgreal=otel_instrumentation
 pkgver=1.0.0_beta2
 pkgrel=1
-provides="php-opentelemetry=8.1"
+provides="php-opentelemetry=8.2"
 pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
 url="http://pecl.php.net/package/opentelemetry-php-instrumentation"
 arch="all"
 license="PHP-3"
-depends="php8.1-common>=8.1.0 php8.1-common<8.2.0"
-makedepends="php8.1-dev>=8.1.0 php8.1-dev<8.2.0 autoconf"
+depends="php8.2-common>=8.2.0 php8.2-common<8.3.0"
+makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf"
 source="https://github.com/open-telemetry/opentelemetry-php-instrumentation/archive/refs/tags/1.0.0beta2.tar.gz"
 builddir="$srcdir/opentelemetry-php-instrumentation-1.0.0beta2"
 
