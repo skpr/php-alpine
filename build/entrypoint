@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -26,18 +26,22 @@ abuild-sign -k ~/.abuild/skpr.rsa.priv ${REPOSITORY}/APKINDEX.tar.gz
 echo "Updating the index of available packages"
 sudo apk update
 
-packages="
-enchant
-gnu-libiconv
-libxlsxwriter
-php${PHP_VERSION}
-php${PHP_VERSION}-apcu
-php${PHP_VERSION}-redis
-php${PHP_VERSION}-memcached
-php${PHP_VERSION}-xdebug
-"
+packages=(
+  "enchant"
+  "gnu-libiconv"
+  "libxlsxwriter"
+  "php${PHP_VERSION}"
+  "php${PHP_VERSION}-apcu"
+  "php${PHP_VERSION}-redis"
+  "php${PHP_VERSION}-memcached"
+  "php${PHP_VERSION}-xdebug"
+)
 
-for package in $packages; do
+if [ "$PHP_VERSION" != "7.4" ]; then
+  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
+fi
+
+for package in "${packages[@]}"; do
   echo "Building Package: ${package}"
 
   cd ${SOURCE}/$package

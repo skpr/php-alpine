@@ -1,0 +1,36 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php8.0-protobuf
+_pkgreal=protobuf
+pkgver=3.22.1
+pkgrel=1
+provides="php-protobuf=8.0"
+pkgdesc="Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.0-common>=8.0.0 php8.0-common<8.1.0"
+makedepends="php8.0-dev>=8.0.0 php8.0-dev<8.1.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="4b86f4c7884527e2c06ec1874cdc7e17827720b7d1a3b2fb38d7115f16d2ec0ee0ae835dbe0313c1e0d777be96764f9834a89e7d93341a78bbffd6f976661346  protobuf-3.22.1.tgz"
