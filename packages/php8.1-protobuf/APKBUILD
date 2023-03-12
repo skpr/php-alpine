@@ -1,16 +1,16 @@
 # Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
 
-pkgname=php7.4-grpc
-_pkgreal=grpc
-pkgver=1.47.4
+pkgname=php8.1-protobuf
+_pkgreal=protobuf
+pkgver=3.22.1
 pkgrel=1
-provides="php-grpc=7.4"
-pkgdesc="A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
+provides="php-protobuf=8.1"
+pkgdesc="Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
 url="http://pecl.php.net/package/$_pkgreal"
 arch="all"
 license="PHP-3"
-depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
-makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf"
+depends="php8.1-common>=8.1.0 php8.1-common<8.2.0"
+makedepends="php8.1-dev>=8.1.0 php8.1-dev<8.2.0 autoconf"
 source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 
@@ -33,4 +33,4 @@ package() {
     echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="38c596f42245f57a0d30f4be32c818771d9f2b72297082b480d5b73640db2aeb059b471db9458bb6dd07cdd3a90bd62f98f5610292c1dd9db46f426a5906ec3e  grpc-1.47.4.tgz"
+sha512sums="4b86f4c7884527e2c06ec1874cdc7e17827720b7d1a3b2fb38d7115f16d2ec0ee0ae835dbe0313c1e0d777be96764f9834a89e7d93341a78bbffd6f976661346  protobuf-3.22.1.tgz"

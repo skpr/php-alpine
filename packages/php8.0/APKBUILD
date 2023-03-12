@@ -97,7 +97,6 @@ _exts="
 	pgsql
 	phar
 	posix
-	protobuf
 	pspell
 	session
 	simplexml
