@@ -229,6 +229,7 @@ build() {
 		--with-xsl=shared \
 		--with-zip=shared \
 		--disable-phpdbg \
+		--enable-dtrace \
 		--enable-fpm $@ || return 1
 	sed -ri "s/^(EXTRA_LDFLAGS[ ]*\=.*)/\1 -lpthread/" Makefile  # see #183 (from main/php)
 
