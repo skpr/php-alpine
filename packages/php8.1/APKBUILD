@@ -52,6 +52,7 @@ makedepends="
 	re2c
 	recode-dev
 	sqlite-dev
+	systemtap-std-dev
 	tidyhtml-dev
 	unixodbc-dev
 	zlib-dev
