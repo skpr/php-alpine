@@ -24,7 +24,6 @@ platforms: &platforms
   - arm64
 
 alpine-versions: &alpine-versions
-  - "3.13"
   - "3.14"
 
 php-versions: &php-versions
