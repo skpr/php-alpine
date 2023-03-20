@@ -38,7 +38,7 @@ packages=(
 )
 
 if [ "$PHP_VERSION" != "7.4" ]; then
-  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
+  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-protobuf")
 fi
 
 for package in "${packages[@]}"; do
