@@ -1,0 +1,76 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+# Needed for PHP 8.0 and 7.4 support.
+# To be removed once 2.3.4 has been released.
+# https://github.com/libgd/libgd/issues/777
+
+pkgname=gd
+pkgver=2.3.2
+pkgrel=0
+_pkgreal=lib$pkgname
+pkgdesc="Library for the dynamic creation of images by programmers"
+url="https://libgd.github.io/"
+arch="all"
+license="custom"
+makedepends="
+	libjpeg-turbo-dev
+	libpng-dev
+	libwebp-dev
+	freetype-dev
+	zlib-dev
+	"
+subpackages="$pkgname-dev $_pkgreal:libs"
+source="https://github.com/$_pkgreal/$_pkgreal/releases/download/gd-$pkgver/$_pkgreal-$pkgver.tar.xz
+	"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+case "$CARCH" in
+	# https://github.com/libgd/libgd/issues/359
+	aarch64|mips*|ppc64le|riscv64|s390x|x86) options="!check";;
+esac
+
+# secfixes:
+#   2.3.0-r1:
+#     - CVE-2021-38115
+#     - CVE-2021-40145
+#   2.3.0-r0:
+#     - CVE-2019-11038
+#     - CVE-2018-14553
+#     - CVE-2017-6363
+#   2.2.5-r2:
+#     - CVE-2018-5711
+#     - CVE-2019-6977
+#     - CVE-2019-6978
+#   2.2.5-r1:
+#     - CVE-2018-1000222
+
+build() {
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--infodir=/usr/share/info \
+		--without-fontconfig \
+		--disable-werror
+	make
+}
+
+check() {
+	TMPDIR=/tmp make check
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+dev() {
+	default_dev
+	depends="$pkgname perl"
+	mkdir -p "$subpkgdir"/usr/bin
+	mv "$pkgdir"/usr/bin/bdftogd "$subpkgdir"/usr/bin/
+}
+
+sha512sums="
+8295dfe1ef0a23aeb4d14cc6a2977ff3c6e3835e3f37f6a0eb13b313b5ab31a8751534473c34ac29ef18307611aa4df9f5421b9fd5b7cee650e197988ecdfdd9  libgd-2.3.2.tar.xz
+"
