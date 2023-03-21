@@ -39,7 +39,8 @@ makedepends="
 	libjpeg-turbo-dev
 	libedit-dev
 	libgcrypt-dev
-	libgpg-error-dev gd-dev
+	libgpg-error-dev
+	gd-dev>=2.3.2
 	mariadb-dev
 	net-snmp-dev
 	openssl-dev

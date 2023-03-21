@@ -31,13 +31,19 @@ packages=(
   "gnu-libiconv"
   "libxlsxwriter"
   "paxmark"
-  "gd"
   "php${PHP_VERSION}"
   "php${PHP_VERSION}-apcu"
   "php${PHP_VERSION}-redis"
   "php${PHP_VERSION}-memcached"
   "php${PHP_VERSION}-xdebug"
 )
+
+if [ "$PHP_VERSION" == "7.4" ]; then
+  packages+=("gd")
+fi
+if [ "$PHP_VERSION" == "8.0" ]; then
+  packages+=("gd")
+fi
 
 if [ "$PHP_VERSION" != "7.4" ]; then
   packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
