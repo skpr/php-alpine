@@ -26,6 +26,7 @@ platforms: &platforms
 alpine-versions: &alpine-versions
   - "3.14"
   - "3.15"
+  - "3.16"
 
 php-versions: &php-versions
   - "7.4"
