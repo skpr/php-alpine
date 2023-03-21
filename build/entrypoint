@@ -30,6 +30,7 @@ packages=(
   "enchant"
   "gnu-libiconv"
   "libxlsxwriter"
+  "paxmark"
   "php${PHP_VERSION}"
   "php${PHP_VERSION}-apcu"
   "php${PHP_VERSION}-redis"
