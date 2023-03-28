@@ -1,0 +1,36 @@
+# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+
+pkgname=php8.2-opentelemetry
+_pkgreal=otel_instrumentation
+pkgver=1.0.0_beta2
+pkgrel=1
+provides="php-opentelemetry=8.2"
+pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
+url="http://pecl.php.net/package/opentelemetry-php-instrumentation"
+arch="all"
+license="PHP-3"
+depends="php8.2-common>=8.2.0 php8.2-common<8.3.0"
+makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf"
+source="https://github.com/open-telemetry/opentelemetry-php-instrumentation/archive/refs/tags/1.0.0beta2.tar.gz"
+builddir="$srcdir/opentelemetry-php-instrumentation-1.0.0beta2"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="84fdc1265e12bff4ea27cb6f23d3003fa5f3a7a5c4951ac732c7540c5c7beb4aac03d9e464a4112fdee4d8eb93c47501c6af32bafeb5dcd4996a46a33dfc898b  1.0.0beta1.tar.gz"
