@@ -162,6 +162,7 @@ build() {
 		--datadir=/usr/share/php \
 		--sysconfdir=/etc/php \
 		--localstatedir=/var \
+		--with-avif \
 		--with-layout=GNU \
 		--with-pic \
 		--with-password-argon2 \
