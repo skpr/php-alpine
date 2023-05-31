@@ -11,7 +11,7 @@ arch="all"
 license="PHP-3"
 depends="php8.0-common>=8.0.0 php8.0-common<8.1.0"
 makedepends="php8.0-dev>=8.0.0 php8.0-dev<8.1.0 autoconf"
-source="https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.13.tar.gz"
+source="php-spx-$pkgver.tar.gz::https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.13.tar.gz"
 builddir="$srcdir/php-spx-0.4.13"
 
 prepare() {
@@ -33,4 +33,4 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="9b59da53109db008ca3c09e9d07d0a648a866f5b525c913182360854c3d5dad58b948d111c2eee57683dc83f5563a4934cff52e6b62d9bbf7c6e1de1bc1f922f  v0.4.13.tar.gz"
+sha512sums="9b59da53109db008ca3c09e9d07d0a648a866f5b525c913182360854c3d5dad58b948d111c2eee57683dc83f5563a4934cff52e6b62d9bbf7c6e1de1bc1f922f  php-spx-0.4.13.tar.gz"
