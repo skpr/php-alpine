@@ -141,6 +141,11 @@ subpackages="$subpackages $pkgname-common::noarch"
 _apiver="20190902"
 
 prepare() {
+	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
+	sudo rm -vf /usr/include/iconv.h
+	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
+	sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
+
 	cd "$builddir"
 
 	default_prepare || return 1
@@ -155,11 +160,6 @@ prepare() {
 }
 
 build() {
-	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
-	sudo rm -vf /usr/include/iconv.h
-	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
-	sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
-
 	cd "$builddir"
 
 	export EXTENSION_DIR=/usr/lib/php/modules
