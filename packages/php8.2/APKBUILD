@@ -78,7 +78,6 @@ _exts="
 	gd
 	gettext
 	gmp
-	iconv
 	imap
 	intl
 	ldap
