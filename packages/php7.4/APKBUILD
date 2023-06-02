@@ -198,7 +198,7 @@ build() {
 		--with-gettext=shared \
 		--with-gmp=shared \
 		--with-sodium=shared \
-		--with-iconv=shared \
+		--with-iconv=/usr \
 		--with-imap=shared --with-imap-ssl \
 		--enable-intl=shared \
 		--enable-json=shared \
