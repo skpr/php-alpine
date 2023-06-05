@@ -39,7 +39,8 @@ makedepends="
 	libjpeg-turbo-dev
 	libedit-dev
 	libgcrypt-dev
-	libgpg-error-dev gd-dev
+	libgpg-error-dev
+	gd-dev
 	mariadb-dev
 	net-snmp-dev
 	openssl-dev
@@ -59,6 +60,7 @@ makedepends="
 
 source="php-$pkgver.tar.bz2::https://www.php.net/distributions/php-$pkgver.tar.bz2
 	install-pear.patch
+	gd.patch
 	"
 builddir="$srcdir/php-$pkgver"
 
@@ -390,4 +392,5 @@ _package_ext() {
 }
 
 sha512sums="fc808d21d66178d9305cd869824c5f4d553b28557cef646e9f8056b10d3da97e1c8d3e93c4f4e5924f9aa801ca295ab9860d1f6b9dbab1d8393a36740e139cdb  php-8.0.0.tar.bz2
-677c9b4b4bde04595c588ed19946d9f828683619506e315d6e69352f56589972283da2957807caaf26eb2eb1075e6889233ef667c2b866156320149c2452bcf0  install-pear.patch"
+677c9b4b4bde04595c588ed19946d9f828683619506e315d6e69352f56589972283da2957807caaf26eb2eb1075e6889233ef667c2b866156320149c2452bcf0  install-pear.patch
+6a861d0d837a3792ac6e03e743037762de0b431171f853db69ae512b2ba0d366ba8a027c3c405d868828c08c4214281ee5b8dc16ad417bffda0ebd8b834782d7  gd.patch"
