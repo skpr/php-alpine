@@ -36,10 +36,11 @@ packages=(
   "php${PHP_VERSION}-redis"
   "php${PHP_VERSION}-memcached"
   "php${PHP_VERSION}-xdebug"
+  "php${PHP_VERSION}-spx"
 )
 
 if [ "$PHP_VERSION" != "7.4" ]; then
-  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf" "php${PHP_VERSION}-spx")
+  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
 fi
 
 for package in "${packages[@]}"; do
