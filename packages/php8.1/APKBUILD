@@ -24,6 +24,7 @@ makedepends="
 	gdbm-dev
 	gsoap-dev
 	gettext-dev
+	gnu-libiconv-dev
 	gmp-dev
 	krb5-dev
 	icu-dev
@@ -77,7 +78,6 @@ _exts="
 	gd
 	gettext
 	gmp
-	iconv
 	imap
 	intl
 	ldap
@@ -136,6 +136,11 @@ subpackages="$subpackages $pkgname-common::noarch"
 _apiver="20210902"
 
 prepare() {
+	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
+	sudo rm -vf /usr/include/iconv.h
+	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
+	sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
+
 	cd "$builddir"
 
 	default_prepare || return 1
@@ -189,7 +194,7 @@ build() {
 		--with-gettext=shared \
 		--with-gmp=shared \
 		--with-sodium=shared \
-		--with-iconv=shared \
+		--with-iconv=/usr \
 		--with-imap=shared --with-imap-ssl \
 		--enable-intl=shared \
 		--enable-json=shared \

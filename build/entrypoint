@@ -28,7 +28,6 @@ sudo apk update
 
 packages=(
   "enchant"
-  "gnu-libiconv"
   "libxlsxwriter"
   "paxmark"
   "php${PHP_VERSION}"
