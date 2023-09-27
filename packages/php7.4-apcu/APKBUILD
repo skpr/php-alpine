@@ -1,4 +1,4 @@
-# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
 pkgname=php7.4-apcu
 _pkgreal=apcu

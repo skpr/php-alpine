@@ -1,4 +1,4 @@
-# Maintainer: "Nick Schuch <nick.schuch@skpr.io>"
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
 pkgname=php8.0-xdebug
 _pkgreal=xdebug
