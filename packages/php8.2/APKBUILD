@@ -26,6 +26,7 @@ makedepends="
 	gettext-dev
 	gnu-libiconv-dev
 	gmp-dev
+	gcc
 	krb5-dev
 	icu-dev
 	imap-dev
