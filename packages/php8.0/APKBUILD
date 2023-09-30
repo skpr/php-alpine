@@ -188,6 +188,7 @@ build() {
 		--with-curl=shared \
 		--enable-dba=shared --with-gdbm --with-db4 \
 		--enable-dom=shared \
+		--enable-dtrace \
 		--with-enchant=shared \
 		--enable-exif=shared \
 		--enable-ftp=shared \
