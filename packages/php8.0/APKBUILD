@@ -43,6 +43,7 @@ makedepends="
 	libgpg-error-dev
 	gd-dev
 	mariadb-dev
+	musl-dev
 	net-snmp-dev
 	openssl-dev
 	openldap-dev
