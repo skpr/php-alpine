@@ -2,7 +2,7 @@
 
 pkgname=php8.3-xdebug
 _pkgreal=xdebug
-pkgver=3.2.0
+pkgver=3.3.0alpha3
 pkgrel=1
 provides="php-xdebug=8.3"
 pkgdesc="xDebug Profiler"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-357acd17e1b74f39278d9fad6d1038c283d3b7a736c32c7188836815aa0f07eadd437cf4e06d8f03a724a13be28e7d72e7c3a6e9adda1335309ec12495d81392  xdebug-3.2.0.tgz
+3c7842d46f8cdd82dbe54a1bc53680a8123a8f1326e912269cdce502fab4b144ba18d2bbcd7dca8838984cb5593f9f7dd51fd14626cf8566e681771dcdb57fde  xdebug-3.3.0alpha3.tgz
 "
