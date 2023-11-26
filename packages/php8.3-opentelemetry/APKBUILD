@@ -33,4 +33,6 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="84fdc1265e12bff4ea27cb6f23d3003fa5f3a7a5c4951ac732c7540c5c7beb4aac03d9e464a4112fdee4d8eb93c47501c6af32bafeb5dcd4996a46a33dfc898b  1.0.0beta1.tar.gz"
+sha512sums="
+84fdc1265e12bff4ea27cb6f23d3003fa5f3a7a5c4951ac732c7540c5c7beb4aac03d9e464a4112fdee4d8eb93c47501c6af32bafeb5dcd4996a46a33dfc898b  1.0.0beta2.tar.gz
+"

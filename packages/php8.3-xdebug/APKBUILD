@@ -2,7 +2,8 @@
 
 pkgname=php8.3-xdebug
 _pkgreal=xdebug
-pkgver=3.3.0alpha3
+pkgver=3.3.0_alpha3
+_pkgver=${pkgver/_/}
 pkgrel=1
 provides="php-xdebug=8.3"
 pkgdesc="xDebug Profiler"
@@ -11,8 +12,8 @@ arch="all"
 license="XDEBUG-1"
 depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
 makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf"
-source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
-builddir="$srcdir/$_pkgreal-$pkgver"
+source="http://pecl.php.net/get/$_pkgreal-$_pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$_pkgver"
 
 prepare() {
 	default_prepare || return 1
