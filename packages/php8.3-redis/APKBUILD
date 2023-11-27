@@ -2,7 +2,7 @@
 
 pkgname=php8.3-redis
 _pkgreal=redis
-pkgver=5.3.7
+pkgver=6.0.2
 pkgrel=3
 provides="php-redis=8.3"
 pkgdesc="Redis extension for PHP"
