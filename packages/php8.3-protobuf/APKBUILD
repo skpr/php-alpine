@@ -2,7 +2,7 @@
 
 pkgname=php8.3-protobuf
 _pkgreal=protobuf
-pkgver=3.22.1
+pkgver=3.25.1
 pkgrel=1
 provides="php-protobuf=8.3"
 pkgdesc="Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
