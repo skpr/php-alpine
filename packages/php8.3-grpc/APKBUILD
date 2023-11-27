@@ -2,7 +2,7 @@
 
 pkgname=php8.3-grpc
 _pkgreal=grpc
-pkgver=1.47.4
+pkgver=1.59.1
 pkgrel=1
 provides="php-grpc=8.3"
 pkgdesc="A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
