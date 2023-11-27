@@ -2,7 +2,7 @@
 
 pkgname=php8.3-opentelemetry
 _pkgreal=otel_instrumentation
-pkgver=1.0.0_beta2
+pkgver=1.0.0
 pkgrel=1
 provides="php-opentelemetry=8.3"
 pkgdesc="OpenTelemetry - OpenTelemetry extension for PHP"
@@ -11,8 +11,8 @@ arch="all"
 license="PHP-3"
 depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
 makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf"
-source="https://github.com/open-telemetry/opentelemetry-php-instrumentation/archive/refs/tags/1.0.0beta2.tar.gz"
-builddir="$srcdir/opentelemetry-php-instrumentation-1.0.0beta2"
+source="https://github.com/open-telemetry/opentelemetry-php-instrumentation/archive/refs/tags/1.0.0.tar.gz"
+builddir="$srcdir/opentelemetry-php-instrumentation-1.0.0"
 
 prepare() {
 	default_prepare || return 1
