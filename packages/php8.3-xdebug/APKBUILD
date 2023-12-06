@@ -26,6 +26,11 @@ build() {
     make || return 1
 }
 
+check() {
+	# PECL package has no test suite.
+	php -d zend_extension="$builddir"/modules/xdebug.so -r 'xdebug_info();'
+}
+
 package() {
 	mkdir -p "$pkgdir" || return 1
     install -d $pkgdir/ || return 1
