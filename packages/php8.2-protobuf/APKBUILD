@@ -2,7 +2,7 @@
 
 pkgname=php8.2-protobuf
 _pkgreal=protobuf
-pkgver=3.22.1
+pkgver=3.25.1
 pkgrel=1
 provides="php-protobuf=8.2"
 pkgdesc="Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
@@ -33,4 +33,6 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="4b86f4c7884527e2c06ec1874cdc7e17827720b7d1a3b2fb38d7115f16d2ec0ee0ae835dbe0313c1e0d777be96764f9834a89e7d93341a78bbffd6f976661346  protobuf-3.22.1.tgz"
+sha512sums="
+55af40eaf59da6b27e85209a3918e9fd2ef85b360bae66ddd3734cfccc934e3021c1468ad519bb07bfddaedbf585c9d1629fa694d474031c0eb0e670bf469921  protobuf-3.25.1.tgz
+"
