@@ -2,7 +2,7 @@
 
 pkgname=php8.3-grpc
 _pkgreal=grpc
-pkgver=1.59.1
+pkgver=1.60.0
 pkgrel=1
 provides="php-grpc=8.3"
 pkgdesc="A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-b86f6e6ddf9c24c107b459f34459b86af010edcf797e8c8d20d51ab5ce1c64476f3f26285c87a64579ba4a9d0fe10fe1453f222a1869ebbca7576bdbf7719b37  grpc-1.59.1.tgz
+d0a687865f6429c3aad9812c3fe84bd37971f0e37d57112bbb9ace52396f9adb5e9a8a662aa3419997342864cf5ba43ebda69de5cf19ee0530d2f8d952078d12  grpc-1.60.0.tgz
 "
