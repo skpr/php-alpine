@@ -142,7 +142,7 @@ _apiver="20200930"
 
 prepare() {
 	mkdir -p /usr/include/sys
-	mv std.h /usr/include/sys/sdt.h
+	mv sdt.h /usr/include/sys/sdt.h
 	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
 	sudo rm -vf /usr/include/iconv.h
 	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
