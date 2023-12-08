@@ -65,6 +65,7 @@ source="php-$pkgver.tar.bz2::https://www.php.net/distributions/php-$pkgver.tar.b
 	install-pear.patch
 	gd.patch
 	openssl.patch
+	sdt.h
 	"
 builddir="$srcdir/php-$pkgver"
 
