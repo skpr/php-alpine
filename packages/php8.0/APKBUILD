@@ -145,6 +145,7 @@ prepare() {
 	tar -zxf systemtap-5.0.tar.gz
 	sudo mkdir -p /usr/include/sys
 	sudo mv systemtap-5.0/includes/sys/sdt.h /usr/include/sys/sdt.h
+	sudo chown root:root /usr/include/sys/sdt.h
 	rm -fR systemtap-5.0 systemtap-5.0.tar.gz
 	ls -l /usr/include/*
 	ls -l /usr/include/sys/*
