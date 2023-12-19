@@ -138,10 +138,18 @@ subpackages="$subpackages $pkgname-common::noarch"
 _apiver="20220829"
 
 prepare() {
-	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
-	sudo rm -vf /usr/include/iconv.h
-	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
-	sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
+	wget https://sourceware.org/ftp/systemtap/releases/systemtap-5.0.tar.gz
+        tar -zxf systemtap-5.0.tar.gz
+        sudo mkdir -p /usr/include/sys
+        sudo mv systemtap-5.0/includes/sys/sdt.h /usr/include/sys/sdt.h
+        sudo chown root:root /usr/include/sys/sdt.h
+        rm -fR systemtap-5.0 systemtap-5.0.tar.gz
+        ls -l /usr/include/*
+        ls -l /usr/include/sys/*
+        # make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
+        sudo rm -vf /usr/include/iconv.h
+        # PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
+        sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
 
 	cd "$builddir"
 
@@ -188,7 +196,7 @@ build() {
 		--with-curl=shared \
 		--enable-dba=shared --with-gdbm --with-db4 \
 		--enable-dom=shared \
-		--enable-dtrace \
+		--enable-dtrace=/usr \
 		--with-enchant=shared \
 		--enable-exif=shared \
 		--enable-ftp=shared \
@@ -399,6 +407,6 @@ _package_ext() {
 }
 
 sha512sums="
-f3025e3fa2094fc7485a0e8c7c345980163c19b8d1fdc643fbcfde1249f63b85e5f770fc0435a7985884f44ddd4cfb51b4b95450d5ec31272f866eaa78d743d3  php-8.2.0.tar.bz2
+8f5e1d096b744d5fad832f2edc4d8ecd3ab584cfa992211d3035d03aad61a627946336528f02d7482a73e019f4c7314c4b8df078d773b714ce737d1e2c3d09b6  php-8.2.13.tar.bz2
 baeaa9168a0aaf7edc15da770e0cf00db9dba5763622ed58a1d8b3e6dacf8938913fbf3a3a2fac728b55e4ce2b92bfa07a19599b5ffd1f83a89e0b57fb7c4856  install-pear.patch
 "
