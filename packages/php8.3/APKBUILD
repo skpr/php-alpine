@@ -71,6 +71,7 @@ _exts="
 	curl
 	dba
 	dom
+	dtrace
 	enchant
 	exif
 	ftp
