@@ -2,7 +2,7 @@
 
 pkgname=php8.3-spx
 _pkgreal=spx
-pkgver=dcaac57af43d2a886a47aff115302d09a1bff2dd
+pkgver=master
 pkgrel=1
 provides="php-spx=8.3"
 pkgdesc="SPX - A simple profiler for PHP"
@@ -12,7 +12,7 @@ license="PHP-3"
 depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
 makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf"
 source="php-spx-$pkgver.tar.gz::https://api.github.com/repos/NoiseByNorthwest/php-spx/tarball/dcaac57af43d2a886a47aff115302d09a1bff2dd"
-builddir="$srcdir/php-spx-dcaac57af43d2a886a47aff115302d09a1bff2dd"
+builddir="$srcdir/php-spx-master"
 
 prepare() {
 	default_prepare || return 1
@@ -33,4 +33,4 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="5d9929388bb746554c9ce4648275435d3e9e6309b9cc4b60932f680e811730beecb4dacd12237cdb0968593a7925c76ad9b0cf1aaacc8e6e0d6ac4e1fe51b3f7  php-spx-dcaac57af43d2a886a47aff115302d09a1bff2dd.tar.gz"
+sha512sums="5d9929388bb746554c9ce4648275435d3e9e6309b9cc4b60932f680e811730beecb4dacd12237cdb0968593a7925c76ad9b0cf1aaacc8e6e0d6ac4e1fe51b3f7  php-spx-master.tar.gz"
