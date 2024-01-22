@@ -1,16 +1,16 @@
 # Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
-pkgname=php7.4-spx
+pkgname=php8.3-spx
 _pkgreal=spx
 pkgver=0.4.15
 pkgrel=1
-provides="php-spx=7.4"
+provides="php-spx=8.3"
 pkgdesc="SPX - A simple profiler for PHP"
 url="https://github.com/NoiseByNorthwest/php-spx"
 arch="all"
 license="PHP-3"
-depends="php7.4-common>=7.4.0 php7.4-common<7.5.0"
-makedepends="php7.4-dev>=7.4.0 php7.4-dev<7.5.0 autoconf"
+depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
+makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf"
 source="php-spx-$pkgver.tar.gz::https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.15.tar.gz"
 builddir="$srcdir/php-spx-0.4.15"
 
