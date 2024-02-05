@@ -2,7 +2,7 @@
 
 pkgname=php8.3-opentelemetry
 _pkgreal=opentelemetry
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 provides="php-opentelemtry=8.3"
 pkgdesc="High-quality, ubiquitous, and portable telemetry to enable effective observability."
