@@ -20,7 +20,7 @@ jobs:
       - name: Build
         run: |
           ARCH=$(uname -m)
-          echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch amd64"
+          echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
       - uses: actions/upload-artifact@v4
         with:
