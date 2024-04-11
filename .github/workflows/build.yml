@@ -17,7 +17,7 @@ jobs:
           show-progress: false
       - name: Build
         run: |
-          echo "Building alpine ${{ matrix.php }} php ${{ matrix.php }} arch amd64"
+          echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch amd64"
           make build ARCH=x86_64 ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
       - uses: actions/upload-artifact@v4
         with:
