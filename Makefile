@@ -13,7 +13,7 @@ build: image
 image:
 	docker image build --build-arg ALPINE_VERSION=$(ALPINE) -t $(BUILD_IMAGE) build
 
-PRIVATE_KEY=$(CURDIR)/build/.abuild/skpr.rsa.priv
+PRIVATE_KEY=$(CURDIR)/build/.abuild/skpr.rsa
 PUBLIC_KEY=$(CURDIR)/build/.abuild/skpr.rsa.pub
 
 # This is a step which is only used for local development.

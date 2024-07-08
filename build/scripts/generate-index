@@ -4,11 +4,5 @@ ARCH=$1
 
 cd /_output/packages/${ARCH}
 
-apk index -o APKINDEX.unsigned.tar.gz *.apk --rewrite-arch ${ARCH}
-
-openssl dgst -sha1 -sign ~/.abuild/skpr.rsa.priv -out .SIGN.RSA.skpr.rsa.pub APKINDEX.unsigned.tar.gz
-
-tar -c .SIGN.RSA.skpr.rsa.pub | abuild-tar --cut | gzip -9 > signature.tar.gz
-cat signature.tar.gz APKINDEX.unsigned.tar.gz > APKINDEX.tar.gz
-
-rm APKINDEX.unsigned.tar.gz signature.tar.gz .SIGN.RSA.skpr.rsa.pub
+apk index -o APKINDEX.tar.gz *.apk --rewrite-arch ${ARCH}
+abuild-sign -k ~/.abuild/skpr.rsa APKINDEX.tar.gz

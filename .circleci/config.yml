@@ -73,7 +73,7 @@ jobs:
             aws kms decrypt \
               --ciphertext-blob fileb://<(cat build/.abuild/skpr.rsa.asc | base64 --decode) \
               --output text \
-              --query Plaintext | base64 --decode > build/.abuild/skpr.rsa.priv
+              --query Plaintext | base64 --decode > build/.abuild/skpr.rsa
       - run:
           name: Build
           command: |
@@ -99,7 +99,7 @@ jobs:
           # try to clean this up.
           name: Delete Private Key
           command: |
-            rm -f build/.abuild/skpr.rsa.priv
+            rm -f build/.abuild/skpr.rsa
 
 workflows:
   build:

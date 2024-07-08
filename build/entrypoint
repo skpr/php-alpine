@@ -20,9 +20,6 @@ sudo rm -rf ${SOURCE}/*/pkg ${SOURCE}/*/src ${SOURCE}/*/tmp ${REPOSITORY}/*
 echo "Generating Index"
 generate-index ${ARCH}
 
-echo "Signing Index"
-abuild-sign -k ~/.abuild/skpr.rsa.priv ${REPOSITORY}/APKINDEX.tar.gz
-
 echo "Updating the index of available packages"
 sudo apk update
 
