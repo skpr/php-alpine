@@ -18,7 +18,7 @@ PUBLIC_KEY=$(CURDIR)/build/.abuild/skpr.rsa.pub
 
 # This is a step which is only used for local development.
 keys:
-	openssl genrsa -out $(PRIVATE_KEY) 4096
+	openssl genrsa -out $(PRIVATE_KEY) 2048
 	openssl rsa -in $(PRIVATE_KEY) -pubout -out $(PUBLIC_KEY)
 
 deploy:
