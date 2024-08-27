@@ -59,6 +59,7 @@ makedepends="
 	"
 
 source="php-$pkgver.tar.bz2::https://www.php.net/distributions/php-$pkgver.tar.bz2
+	fpm-log-buffer.patch
 	install-pear.patch
 	"
 builddir="$srcdir/php-$pkgver"
