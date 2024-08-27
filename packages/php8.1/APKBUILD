@@ -158,7 +158,7 @@ build() {
 	cd "$builddir"
 
 	export EXTENSION_DIR=/usr/lib/php/modules
-    export CFLAGS="-DMAX_LINE_LENGTH=8192"
+	export CFLAGS="-DMAX_LINE_LENGTH=8192"
 
 	./configure \
 		--build=$CBUILD \
