@@ -161,6 +161,7 @@ build() {
 	cd "$builddir"
 
 	export EXTENSION_DIR=/usr/lib/php/modules
+    export CFLAGS="-DMAX_LINE_LENGTH=8192"
 
 	./configure \
 		--build=$CBUILD \
@@ -239,9 +240,6 @@ build() {
 		--disable-phpdbg \
 		--enable-fpm $@ || return 1
 	sed -ri "s/^(EXTRA_LDFLAGS[ ]*\=.*)/\1 -lpthread/" Makefile  # see #183 (from main/php)
-
-	# https://serverfault.com/questions/1017932/php-fpm-notice-the-log-buffer-is-full-1024-the-access-log-request-has-been
-	export CFLAGS=-DMAX_LINE_LEGTH=8192
 
 	make || return 1
 }

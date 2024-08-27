@@ -158,6 +158,7 @@ build() {
 	cd "$builddir"
 
 	export EXTENSION_DIR=/usr/lib/php/modules
+    export CFLAGS="-DMAX_LINE_LENGTH=8192"
 
 	./configure \
 		--build=$CBUILD \
@@ -235,7 +236,7 @@ build() {
 		--with-xsl=shared \
 		--with-zip=shared \
 		--disable-phpdbg \
-		--enable-fpm $@ CFLAGS="-DMAX_LINE_LENGTH=8192" || return 1
+		--enable-fpm $@ || return 1
 	sed -ri "s/^(EXTRA_LDFLAGS[ ]*\=.*)/\1 -lpthread/" Makefile  # see #183 (from main/php)
 
 	make || return 1
