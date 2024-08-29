@@ -162,6 +162,10 @@ build() {
 
 	export EXTENSION_DIR=/usr/lib/php/modules
 
+	export CFLAGS="$PHP_CFLAGS"
+	export CPPFLAGS="$PHP_CPPFLAGS"
+	export LDFLAGS="$PHP_LDFLAGS"
+
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
