@@ -2,7 +2,7 @@
 
 pkgname=php8.1-protobuf
 _pkgreal=protobuf
-pkgver=3.25.1
+pkgver=4.27.5
 pkgrel=1
 provides="php-protobuf=8.1"
 pkgdesc="Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-55af40eaf59da6b27e85209a3918e9fd2ef85b360bae66ddd3734cfccc934e3021c1468ad519bb07bfddaedbf585c9d1629fa694d474031c0eb0e670bf469921  protobuf-3.25.1.tgz
+8e2e32cfb74ebe2a23b5ae0ea3164ed22b9ebda4d9da36f33cce60bd35ce72408f17aab3e28dc672a2374f0e12aa698717dcb0209c0109ad4c8040399c376848  protobuf-4.27.5.tgz
 "
