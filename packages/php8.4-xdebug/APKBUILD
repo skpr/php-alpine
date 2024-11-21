@@ -13,7 +13,7 @@ license="XDEBUG-1"
 depends="php8.4-common>=8.4.0 php8.4-common<8.5.0"
 makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf"
 source="http://pecl.php.net/get/$_pkgreal-${_pkgver}beta1.tgz"
-builddir="$srcdir/$_pkgreal-$_pkgver"
+builddir="$srcdir/$_pkgreal-${_pkgver}beta1"
 
 prepare() {
 	default_prepare || return 1
