@@ -2,7 +2,7 @@
 
 pkgname=php8.4-xdebug
 _pkgreal=xdebug
-pkgver=3.3.2
+pkgver=3.4.0beta1 
 _pkgver=${pkgver/_/}
 pkgrel=1
 provides="php-xdebug=8.4"
