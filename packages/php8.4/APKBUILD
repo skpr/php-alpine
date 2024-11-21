@@ -1,6 +1,6 @@
 # Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
-pkgname=php8.5
+pkgname=php8.4
 pkgrel=1
 pkgver=8.4.0
 pkgdesc="The PHP language runtime engine - 8th branch"
@@ -133,7 +133,7 @@ for _ext in $_exts; do
 done
 subpackages="$subpackages $pkgname-common::noarch"
 
-_apiver="20230831"
+_apiver="20240924"
 
 prepare() {
 	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
