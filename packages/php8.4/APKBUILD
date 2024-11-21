@@ -28,7 +28,6 @@ makedepends="
 	gmp-dev
 	krb5-dev
 	icu-dev
-	imap-dev
 	libxml2-dev
 	libxslt-dev
 	libzip-dev
@@ -78,7 +77,6 @@ _exts="
 	gd
 	gettext
 	gmp
-	imap
 	intl
 	ldap
 	mbstring
@@ -199,7 +197,6 @@ build() {
 		--with-gmp=shared \
 		--with-sodium=shared \
 		--with-iconv=/usr \
-		--with-imap=shared --with-imap-ssl \
 		--enable-intl=shared \
 		--enable-json=shared \
 		--with-libxml=shared --with-expat=shared \
