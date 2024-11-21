@@ -95,7 +95,6 @@ _exts="
 	pgsql
 	phar
 	posix
-	pspell
 	session
 	simplexml
 	shmop
@@ -215,7 +214,6 @@ build() {
 		--enable-pcntl=shared \
 		--enable-posix=shared \
 		--enable-phar=shared \
-		--with-pspell=shared \
 		--without-readline \
 		--with-libedit \
 		--enable-session=shared \
