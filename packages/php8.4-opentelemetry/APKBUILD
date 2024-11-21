@@ -1,0 +1,38 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.4-opentelemetry
+_pkgreal=opentelemetry
+pkgver=1.1.0	
+pkgrel=1
+provides="php-opentelemtry=8.4"
+pkgdesc="High-quality, ubiquitous, and portable telemetry to enable effective observability."
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.4-common>=8.4.0 php8.4-common<8.5.0"
+makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+61112e7de7efb4e43ed974d89022d19244a3fe662d76a5c275dc83824b4cf5158513447956fbdce2d8ec6cd70f46bd742d0d829400a788d53a5cb3b8f9f12af3  opentelemetry-1.1.0.tgz
+"
