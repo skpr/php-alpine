@@ -24,8 +24,8 @@ platforms: &platforms
   - arm64
 
 alpine-versions: &alpine-versions
-  - "3.19"
   - "3.20"
+  - "3.21"
 
 php-versions: &php-versions
   - "8.1"
