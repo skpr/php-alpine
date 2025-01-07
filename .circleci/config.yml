@@ -28,7 +28,6 @@ alpine-versions: &alpine-versions
   - "3.21"
 
 php-versions: &php-versions
-  - "8.1"
   - "8.2"
   - "8.3"
   - "8.4"
