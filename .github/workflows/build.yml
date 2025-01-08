@@ -1,0 +1,34 @@
+name: Build
+on:
+  pull_request: ~
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        build_image: ["ubuntu-7.0-large", "arm-3.0-large"]
+        alpine: [ "3.19" ]
+        php: [ "8.3" ]
+    runs-on: codebuild-php-alpine-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.build_image }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
+      - name: Generate keys
+        run: make keys
+      - name: Build
+        run: |
+          ARCH=$(uname -m)
+          echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
+          make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: keys-${{ runner.arch }}
+          path: build/.abuild/skpr.rsa.pub
+          retention-days: 1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ runner.arch }}
+          path: _output/${{ matrix.alpine }}/${{ matrix.php }}
+          retention-days: 1
