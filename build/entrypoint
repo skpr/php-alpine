@@ -28,6 +28,7 @@ packages=(
   "libxlsxwriter"
   "paxmark"
   "php${PHP_VERSION}"
+  "php${PHP_VERSION}-imagick"
   "php${PHP_VERSION}-apcu"
   "php${PHP_VERSION}-redis"
   "php${PHP_VERSION}-memcached"
