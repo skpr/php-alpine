@@ -17,7 +17,7 @@ makedepends="
 	bzip2-dev
 	curl-dev
 	db-dev
-	enchant-dev
+	enchant2-dev
 	expat-dev
 	freetype-dev
 	freetds-dev

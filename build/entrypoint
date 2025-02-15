@@ -24,7 +24,6 @@ echo "Updating the index of available packages"
 sudo apk update
 
 packages=(
-  "enchant"
   "libxlsxwriter"
   "paxmark"
   "php${PHP_VERSION}"
