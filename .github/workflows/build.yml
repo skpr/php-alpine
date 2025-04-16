@@ -10,7 +10,7 @@ jobs:
       matrix:
         build_image: ["ubuntu-24.04", "ubuntu-24.04-arm"]
         alpine: [ "3.20" ]
-        php: [ "8.3" ]
+        php: [ "8.1", "8.2", "8.3", "8.4" ]
     runs-on: ${{ matrix.build_image }}
     steps:
       - name: ↙️ Checkout
