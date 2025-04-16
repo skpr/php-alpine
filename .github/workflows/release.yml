@@ -12,7 +12,7 @@ jobs:
       matrix:
         build_image: ["ubuntu-24.04", "ubuntu-24.04-arm"]
         alpine: [ "3.20" ]
-        php: [ "8.1", "8.2", "8.3", "8.4" ]
+        php: [ "8.4" ]
     runs-on: ${{ matrix.build_image }}
     steps:
       - name: ↙️ Checkout
@@ -24,7 +24,7 @@ jobs:
       - name: 🏗️  Build
         run: |
           ARCH=$(uname -m)
-          echo "ARCH=${ARCH}" >> "$GITHUB_OUTPUT"
+          echo "ARCH=${ARCH}" >> $GITHUB_ENV
           echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
       - name: 🔐 Get AWS credentials
