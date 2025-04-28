@@ -35,10 +35,6 @@ packages=(
   "php${PHP_VERSION}-spx"
 )
 
-if [ "$PHP_VERSION" != "8.1" ]; then
-  packages+=("enchant")
-fi
-
 for package in "${packages[@]}"; do
   echo "Building Package: ${package}"
 
