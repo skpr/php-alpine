@@ -24,7 +24,6 @@ echo "Updating the index of available packages"
 sudo apk update
 
 packages=(
-  "enchant"
   "libxlsxwriter"
   "paxmark"
   "php${PHP_VERSION}"
@@ -36,8 +35,8 @@ packages=(
   "php${PHP_VERSION}-spx"
 )
 
-if [ "$PHP_VERSION" != "7.4" ]; then
-  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
+if [ "$PHP_VERSION" != "8.1" ]; then
+  packages+=("enchant")
 fi
 
 for package in "${packages[@]}"; do
