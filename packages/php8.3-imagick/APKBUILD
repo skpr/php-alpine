@@ -2,7 +2,7 @@
 
 pkgname=php8.3-imagick
 _pkgreal=imagick
-pkgver=3.7.0
+pkgver=3.8.0
 pkgrel=3
 provides="php-imagick=8.3"
 pkgdesc="Provides a wrapper to the ImageMagick library."
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-c84408e4e4a0c46d979240e06d58d264c6bb21f3b95e3d434c8a21cd808f6c495fd453ef9c07b5c44dac81c6f205b6697f8ecaf1a65a86ce4e9052328a389ebe  imagick-3.7.0.tgz
+9ed2eda2220ab96e23587cfea9e2030a2e7084abf12753c3fff37e76fa2611d67149928d480d51fd8e2d0e3219058bd206bd30c6c436595f93d4158fbd051623  imagick-3.8.0.tgz
 "
