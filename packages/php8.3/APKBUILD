@@ -212,6 +212,7 @@ build() {
 		--with-pgsql=shared --with-pdo-pgsql=shared \
 		--with-unixODBC=shared,/usr -with-pdo-odbc=shared,unixODBC,/usr \
 		--with-dbmaker=shared \
+		--enable-embed=shared \
 		--enable-fileinfo=shared \
         --enable-opcache=shared \
 		--enable-pdo=shared \
