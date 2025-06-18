@@ -131,7 +131,7 @@ for _ext in $_exts; do
 	*) subpackages="$subpackages $pkgname-$_ext:_package_ext";;
 	esac
 done
-subpackages="$subpackages $pkgname-common::noarch"
+subpackages="$subpackages $pkgname-common"
 
 _apiver="20220829"
 
