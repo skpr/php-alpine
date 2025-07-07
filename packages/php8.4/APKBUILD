@@ -2,7 +2,7 @@
 
 pkgname=php8.4
 pkgrel=1
-pkgver=8.4.8
+pkgver=8.4.10
 pkgdesc="The PHP language runtime engine - 8th branch"
 url="http://www.php.net/"
 arch="all"
