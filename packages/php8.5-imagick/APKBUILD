@@ -1,0 +1,39 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.4-imagick
+_pkgreal=imagick
+pkgver=3.8.0
+pkgrel=3
+provides="php-imagick=8.4"
+pkgdesc="Provides a wrapper to the ImageMagick library."
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.4-common>=8.4.0 php8.4-common<8.5.0 imagemagick"
+checkdepends="ghostscript-fonts imagemagick-jpeg imagemagick-svg"
+makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf imagemagick-dev"
+source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+9ed2eda2220ab96e23587cfea9e2030a2e7084abf12753c3fff37e76fa2611d67149928d480d51fd8e2d0e3219058bd206bd30c6c436595f93d4158fbd051623  imagick-3.8.0.tgz
+"

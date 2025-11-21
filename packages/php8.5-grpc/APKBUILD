@@ -1,0 +1,38 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.4-grpc
+_pkgreal=grpc
+pkgver=1.68.0
+pkgrel=1
+provides="php-grpc=8.4"
+pkgdesc="A high performance, open source, general RPC framework that puts mobile and HTTP/2 first."
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.4-common>=8.4.0 php8.4-common<8.5.0"
+makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+7983b64cbcfd64cf6d5cda3e9a9fcb9008299d0d107bc88b2ea973a5732439f0874f6c8a6341aee3f266ddc82e6d175e85dcd64ee8bdc12a3c3f5bf4939f6677  grpc-1.68.0.tgz
+"
