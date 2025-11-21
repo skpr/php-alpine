@@ -1,17 +1,16 @@
 # Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
-pkgname=php8.4-imagick
-_pkgreal=imagick
-pkgver=3.8.0
+pkgname=php8.5-redis
+_pkgreal=redis
+pkgver=6.3.0
 pkgrel=3
-provides="php-imagick=8.4"
-pkgdesc="Provides a wrapper to the ImageMagick library."
+provides="php-redis=8.5"
+pkgdesc="Redis extension for PHP"
 url="http://pecl.php.net/package/$_pkgreal"
 arch="all"
 license="PHP-3"
-depends="php8.4-common>=8.4.0 php8.4-common<8.5.0 imagemagick"
-checkdepends="ghostscript-fonts imagemagick-jpeg imagemagick-svg"
-makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf imagemagick-dev"
+depends="php8.5-common>=8.5.0 php8.5-common<8.6.0 php8.5-session>=8.5.0 php8.5-session<8.6.0"
+makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf"
 source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 
@@ -35,5 +34,5 @@ package() {
 }
 
 sha512sums="
-9ed2eda2220ab96e23587cfea9e2030a2e7084abf12753c3fff37e76fa2611d67149928d480d51fd8e2d0e3219058bd206bd30c6c436595f93d4158fbd051623  imagick-3.8.0.tgz
+1c6d43bf1a5766c8127ba16ace0a605088a5bd68661e4b30475a93e560ba2640d0acd4e41af20e9fcf8fbf8249bdb687eec86847a5110aeaca92b0f320eab2e2  redis-6.3.0.tgz
 "

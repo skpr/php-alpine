@@ -1,18 +1,18 @@
 # Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
-pkgname=php8.4-memcached
+pkgname=php8.5-memcached
 _pkgreal=memcached
-pkgver=3.3.0
+pkgver=3.4.0
 pkgrel=1
-provides="php-memcached=8.4"
+provides="php-memcached=8.5"
 pkgdesc="PHP extension for interfacing with memcached via libmemcached library"
 url="http://pecl.php.net/package/$_pkgreal"
 arch="all"
 license="PHP-3"
-depends="php8.4-common>=8.4.0 php8.4-common<8.5.0 php8.4-session>=8.4.0 php8.4-session<8.5.0"
-makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf libmemcached-dev"
-source="https://pecl.php.net/get/$_pkgreal-3.2.0RC2.tgz"
-builddir="$srcdir/$_pkgreal-3.2.0RC2"
+depends="php8.5-common>=8.5.0 php8.5-common<8.6.0 php8.5-session>=8.5.0 php8.5-session<8.6.0"
+makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf libmemcached-dev"
+source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
 
 prepare() {
 	default_prepare || return 1
@@ -35,5 +35,5 @@ package() {
 
 
 sha512sums="
-056dec58734dc2171429d1b33a74be829f78ab993f0f1699d9f61b105d4252e35c4e05dbda9e045ed3364d82779c662c2f28c63cdac1b81027549335b5376845  memcached-3.2.0RC2.tgz
+b60fdb7347f8be19f53f67d2bd96ed1423b862a517ad61513d9f736d4cbfe55b9da1e4b13d366968e39a0617e0b98f48e72d0fb357061f3cc093b18f5afad685  memcached-3.4.0.tgz
 "

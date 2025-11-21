@@ -27,16 +27,28 @@ packages=(
   "libxlsxwriter"
   "paxmark"
   "php${PHP_VERSION}"
-  "php${PHP_VERSION}-imagick"
   "php${PHP_VERSION}-apcu"
-  "php${PHP_VERSION}-redis"
+  "php${PHP_VERSION}-grpc"
+  "php${PHP_VERSION}-imagick"
   "php${PHP_VERSION}-memcached"
-  "php${PHP_VERSION}-xdebug"
+  "php${PHP_VERSION}-opentelemetry"
+  "php${PHP_VERSION}-redis"
   "php${PHP_VERSION}-spx"
+  "php${PHP_VERSION}-xdebug"
 )
 
-if [ "$PHP_VERSION" != "7.4" ]; then
-  packages+=("php${PHP_VERSION}-grpc" "php${PHP_VERSION}-opentelemetry" "php${PHP_VERSION}-protobuf")
+# Temporary workaround for unavailable packages for PHP 8.5.
+if [ "$PHP_VERSION" == "8.5" ]; then
+  exclude_packages=(
+    "php${PHP_VERSION}-grpc"
+    "php${PHP_VERSION}-imagick"
+    "php${PHP_VERSION}-opentelemetry"
+    "php${PHP_VERSION}-spx"
+    "php${PHP_VERSION}-xdebug"
+  )
+  for i in "${exclude_packages[@]}"; do
+    packages=(${packages[@]//*$i*})
+  done
 fi
 
 for package in "${packages[@]}"; do
