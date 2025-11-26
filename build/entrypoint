@@ -31,7 +31,6 @@ packages=(
   "php${PHP_VERSION}-grpc"
   "php${PHP_VERSION}-imagick"
   "php${PHP_VERSION}-memcached"
-  "php${PHP_VERSION}-opentelemetry"
   "php${PHP_VERSION}-redis"
   "php${PHP_VERSION}-spx"
   "php${PHP_VERSION}-xdebug"
