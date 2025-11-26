@@ -42,7 +42,6 @@ if [ "$PHP_VERSION" == "8.5" ]; then
   exclude_packages=(
     "php${PHP_VERSION}-grpc"
     "php${PHP_VERSION}-imagick"
-    "php${PHP_VERSION}-spx"
     "php${PHP_VERSION}-xdebug"
   )
   for i in "${exclude_packages[@]}"; do
