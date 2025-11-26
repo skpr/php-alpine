@@ -1,0 +1,43 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.5-xdebug
+_pkgreal=xdebug
+pkgver=3.4.7
+pkgrel=1
+provides="php-xdebug=8.5"
+pkgdesc="xDebug Profiler"
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="XDEBUG-1"
+depends="php8.5-common>=8.5.0 php8.5-common<8.6.0"
+makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+check() {
+	# PECL package has no test suite.
+	php -d zend_extension="$builddir"/modules/xdebug.so -r 'xdebug_info();'
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "zend_extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+046187322d1292d70e278aca38dc9ace97c3ba9f2c0656fbb7b9dc611ab5f403ba638f925058fdfc9c7d20b9be04180b898db7cb782983080e3278031b41cd18  xdebug-3.4.7.tgz
+"

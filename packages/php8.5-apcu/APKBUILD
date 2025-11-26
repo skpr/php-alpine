@@ -1,0 +1,38 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.5-apcu
+_pkgreal=apcu
+pkgver=5.1.27
+pkgrel=1
+provides="php-apcu=8.5"
+pkgdesc="APCu - APC User Cache extension for PHP"
+url="http://pecl.php.net/package/$_pkgreal"
+arch="all"
+license="PHP-3"
+depends="php8.5-common>=8.5.0 php8.5-common<8.6.0"
+makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf pcre2-dev"
+source="http://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+builddir="$srcdir/$_pkgreal-$pkgver"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+e1cf746b8d82e29986a5bc744624dd9690b30952a9a697dfad5219b576978f93c152eac637b29e5a8801237f06c52b46527e26e86a46d880bfee13862000ff7e  apcu-5.1.27.tgz
+"

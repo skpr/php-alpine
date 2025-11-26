@@ -1,0 +1,399 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.5
+pkgrel=1
+pkgver=8.5.0
+pkgdesc="The PHP language runtime engine - 8th branch"
+url="http://www.php.net/"
+arch="all"
+license="PHP-3"
+options=""
+depends="$pkgname-common>=8.5.0 $pkgname-common<8.6.0"
+makedepends="
+	autoconf
+	argon2-dev
+	aspell-dev
+	bison
+	bzip2-dev
+	curl-dev
+	db-dev
+	enchant2-dev
+	expat-dev
+	freetype-dev
+	freetds-dev
+	gdbm-dev
+	gsoap-dev
+	gettext-dev
+	gnu-libiconv-dev
+	gmp-dev
+	krb5-dev
+	icu-dev
+	libxml2-dev
+	libxslt-dev
+	libzip-dev
+	libical-dev
+	libsodium-dev
+	libxpm-dev
+	libpng-dev
+	libwebp-dev
+	libjpeg-turbo-dev
+	libedit-dev
+	libgcrypt-dev
+	libgpg-error-dev gd-dev
+	mariadb-dev
+	net-snmp-dev
+	openssl-dev
+	openldap-dev
+	oniguruma-dev
+	paxmark
+	pcre-dev
+	pcre2-dev
+	postgresql-dev
+	re2c
+	recode-dev
+	sqlite-dev
+	tidyhtml-dev
+	unixodbc-dev
+	zlib-dev
+	"
+
+source="php-$pkgver.tar.bz2::https://www.php.net/distributions/php-$pkgver.tar.bz2
+	install-pear.patch
+	"
+builddir="$srcdir/php-$pkgver"
+
+_exts="
+	bcmath
+	bz2
+	calendar
+	ctype
+	curl
+	dba
+	dom
+	enchant
+	exif
+	ftp
+	fileinfo
+	gd
+	gettext
+	gmp
+	intl
+	ldap
+	mbstring
+	mysqli
+	mysqlnd
+	odbc
+	openssl
+	pcntl
+	pdo
+	pdo_dblib
+	pdo_mysql
+	pdo_odbc
+	pdo_pgsql
+	pdo_sqlite
+	pgsql
+	phar
+	posix
+	session
+	simplexml
+	shmop
+	snmp
+	soap
+	sockets
+	sodium
+	sqlite3
+	sysvmsg
+	sysvsem
+	sysvshm
+	tidy
+	tokenizer
+	xml
+	xmlreader
+	xmlwriter
+	xsl
+	zip
+	zlib
+	"
+
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-fpm
+	$pkgname-pear::noarch
+	"
+for _ext in $_exts; do
+	case "$_ext" in
+	*:*) subpackages="$subpackages $pkgname-$_ext";;
+	*) subpackages="$subpackages $pkgname-$_ext:_package_ext";;
+	esac
+done
+subpackages="$subpackages $pkgname-common::noarch"
+
+_apiver="20250925"
+
+prepare() {
+	# make sure musl's iconv doesn't get used (https://www.php.net/manual/en/intro.iconv.php)
+	sudo rm -vf /usr/include/iconv.h
+	# PHP < 8 doesn't know to look deeper for GNU libiconv: https://github.com/php/php-src/commit/b480e6841ecd5317faa136647a2b8253a4c2d0df
+	sudo ln -sv /usr/include/gnu-libiconv/*.h /usr/include/
+
+	cd "$builddir"
+
+	default_prepare || return 1
+
+	local vapi=$(sed -n '/#define PHP_API_VERSION/{s/.* //;p}' main/php.h)
+	if [ "$vapi" != "$_apiver" ]; then
+		error "Upstreram API version is now $vapi. Expecting $_apiver"
+		return 1
+	fi
+
+	autoconf
+}
+
+build() {
+	cd "$builddir"
+
+	export EXTENSION_DIR=/usr/lib/php/modules
+
+        export CFLAGS="$PHP_CFLAGS"
+        export CPPFLAGS="$PHP_CPPFLAGS"
+        export LDFLAGS="$PHP_LDFLAGS"
+
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--libdir=/usr/lib/php \
+		--datadir=/usr/share/php \
+		--sysconfdir=/etc/php \
+		--localstatedir=/var \
+		--with-avif \
+		--with-layout=GNU \
+		--with-pic \
+		--with-password-argon2 \
+		--with-pear=/usr/share/php \
+		--with-php-config=/usr/bin/php-config \
+		--with-config-file-path=/etc/php \
+		--with-config-file-scan-dir=/etc/php/conf.d \
+		--disable-short-tags \
+		--with-openssl=shared --with-kerberos --with-system-ciphers \
+		--with-external-pcre=/usr \
+		--with-zlib=shared \
+		--enable-bcmath=shared \
+		--with-bz2=shared \
+		--enable-calendar=shared \
+		--enable-ctype=shared \
+		--with-curl=shared \
+		--enable-dba=shared --with-gdbm --with-db4 \
+		--enable-dom=shared \
+		--with-enchant=shared \
+		--enable-exif=shared \
+		--enable-ftp=shared \
+		--enable-gd=shared --with-webp=shared --with-jpeg=shared --with-xpm=shared --with-external-gd \
+		--with-freetype=shared --enable-gd-native-ttf --enable-gd-jis-conv \
+		--with-gettext=shared \
+		--with-gmp=shared \
+		--with-sodium=shared \
+		--with-iconv=/usr \
+		--enable-intl=shared \
+		--enable-json=shared \
+		--with-libxml=shared --with-expat=shared \
+		--with-ldap=shared --with-ldap-sasl \
+		--enable-mbstring=shared --enable-mbregex \
+		--with-sqlite3=shared,/usr --with-pdo-sqlite=shared,/usr \
+		--with-pdo-dblib=shared \
+		--with-mysqli=shared,mysqlnd \
+		--enable-mysqlnd=shared --with-pdo-mysql=shared,mysqlnd --with-mysql-sock=/run/mysqld/mysqld.sock \
+		--with-pgsql=shared --with-pdo-pgsql=shared \
+		--with-unixODBC=shared,/usr -with-pdo-odbc=shared,unixODBC,/usr \
+		--with-dbmaker=shared \
+		--enable-fileinfo=shared \
+        --enable-opcache=shared \
+		--enable-pdo=shared \
+		--enable-pcntl=shared \
+		--enable-posix=shared \
+		--enable-phar=shared \
+		--without-readline \
+		--with-libedit \
+		--enable-session=shared \
+		--enable-shmop=shared \
+		--with-snmp=shared \
+		--enable-soap=shared \
+		--enable-sockets=shared \
+		--enable-sysvmsg=shared \
+		--enable-sysvsem=shared \
+		--enable-sysvshm=shared \
+		--enable-tokenizer=shared \
+        --with-tidy=shared \
+		--enable-xml=shared \
+		--enable-xmlreader=shared \
+		--enable-xmlwriter=shared \
+		--enable-simplexml=shared \
+		--with-xmlrpc=shared \
+		--with-xsl=shared \
+		--with-zip=shared \
+		--disable-phpdbg \
+		--enable-fpm $@ || return 1
+	sed -ri "s/^(EXTRA_LDFLAGS[ ]*\=.*)/\1 -lpthread/" Makefile  # see #183 (from main/php)
+
+	make || return 1
+}
+
+package() {
+	cd "$builddir"
+
+	make -j1 INSTALL_ROOT="$pkgdir" install || return 1
+
+	install -Dm644 php.ini-production "$pkgdir"/etc/php/php.ini || return 1
+
+	# patch pecl problem with shared xml extension
+    sed -i 's/\(-C *\)[^ ]*/\1/' "$pkgdir"/usr/bin/pecl
+
+	paxmark -m "$pkgdir"/usr/bin/php
+
+	find "$pkgdir" -name '.*' | xargs rm -rf || return 1
+	rmdir "$pkgdir"/var/run
+}
+
+dev() {
+	default_dev
+
+	depends="$depends $pkgname>=8.5.0 $pkgname<8.6.0 $pkgname-pear>=8.5.0 $pkgname-pear<8.6.0"
+	provides="php-dev=$pkgver-r$pkgrel php8-dev=$pkgver-r$pkgrel"
+	replaces="php-dev php8-dev"
+
+	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/usr/lib/php
+
+	echo "pkgdir = $pkgdir"
+	echo "subpkgdir = $subpkgdir"
+
+	mv "$subpkgdir"/usr/bin/php-config "$pkgdir"/usr/bin/peardev "$subpkgdir"/usr/bin/ || return 1
+	mv "$pkgdir"/usr/lib/php/build "$subpkgdir"/usr/lib/php/
+}
+
+doc() {
+	default_doc
+
+	provides="php-doc=$pkgver-r$pkgrel php8-doc=$pkgver-r$pkgrel"
+    replaces="php-doc php8-doc"
+
+	mkdir -p "$subpkgdir"/usr/share/doc/php
+
+	local file
+	for file in CODING_STANDARDS* EXTENSIONS LICENSE NEWS README* UPGRADING*; do
+		cp "$builddir"/$file "$subpkgdir"/usr/share/doc/php/ || return 1
+	done
+}
+
+fpm() {
+	pkgdesc="PHP FastCGI Process Manager"
+
+	depends="$pkgname-common>=8.5.0 $pkgname-common<8.6.0"
+	provides="php-fpm=$pkgver-r$pkgrel php8-fpm=$pkgver-r$pkgrel"
+	replaces="php-fpm php8-fpm"
+
+	mv "$pkgdir"/var "$subpkgdir"/ || return 1
+
+	mkdir -p "$subpkgdir"/etc/php \
+		"$subpkgdir"/usr \
+		"$subpkgdir"/var/lib \
+		"$subpkgdir"/var/log/php
+
+	mv "$pkgdir"/usr/share/php/fpm "$subpkgdir"/var/lib/php/ || return 1
+	mv "$pkgdir"/usr/sbin "$subpkgdir"/usr/ || return 1
+	mv "$pkgdir"/etc/php/php-fpm* "$subpkgdir"/etc/php/ || return 1
+
+	local file; for file in php-fpm.conf php-fpm.d/www.conf; do
+		mv "$subpkgdir"/etc/php/$file.default \
+			"$subpkgdir"/etc/php/$file || return 1
+	done
+}
+
+pear() {
+	pkgdesc="PHP Extension and Application Repository"
+
+	depends="$pkgname>=8.5.0 $pkgname<8.6.0 $pkgname-xml>=8.5.0 $pkgname-xml<8.6.0"
+	provides="php-pear=$pkgver-r$pkgrel php8-pear=$pkgver-r$pkgrel"
+	replaces="php-pear php8-pear"
+
+	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/etc/php
+
+	local file; for file in phpize pecl pear; do
+		mv "$pkgdir"/usr/bin/$file "$subpkgdir"/usr/bin/
+	done
+
+	mv "$pkgdir"/etc/php/pear.conf "$subpkgdir"/etc/php/ || return 1
+	mv "$pkgdir"/usr/share "$subpkgdir"/usr/
+}
+
+common() {
+	pkgdesc="$pkgdesc (common config)"
+
+	depends=""
+    provides="php-common=$pkgver-r$pkgrel php8-common=$pkgver-r$pkgrel"
+	replaces="php-common php8-common"
+
+	mkdir -p "$subpkgdir"/usr
+	mv "$pkgdir"/usr/lib "$subpkgdir"/usr/ || return 1
+	mv "$pkgdir"/etc "$subpkgdir"/ || return 1
+
+	mkdir "$subpkgdir"/etc/php/conf.d
+}
+
+phar() {
+	depends="$pkgname>=8.5.0 $pkgname<8.6.0"
+    provides="php-phar=$pkgver-r$pkgrel php8-phar=$pkgver-r$pkgrel"
+	replaces="php-phar php8-phar"
+
+	_package_ext || return 1
+	mkdir -p "$subpkgdir"/usr/bin
+	mv "$pkgdir"/usr/bin/phar* "$subpkgdir"/usr/bin/
+}
+
+depends_dom="$pkgname-xml>=8.5.0 $pkgname-xml<8.6.0"
+depends_mysqlnd="$pkgname-openssl>=8.5.0 $pkgname-openssl<8.6.0"
+depends_mysqli="$pkgname-mysqlnd>=8.5.0 $pkgname-mysqlnd<8.6.0"
+depends_pdo_mysql="$pkgname-mysqlnd>=8.5.0 $pkgname-mysqlnd<8.6.0"
+depends_soap="$pkgname-xml>=8.5.0 $pkgname-xml<8.6.0"
+depends_xmlreader="$pkgname-dom>=7..0 $pkgname-dom<8.6.0"
+depends_xmlrpc="$pkgname-xml>=8.5.0 $pkgname-xml<8.6.0"
+depends_xsl="$pkgname-dom>=8.5.0 $pkgname-dom<8.6.0"
+
+_package_ext() {
+	local extname="${subpkgname#$pkgname-}"
+	local extdepends="$(eval "echo \$depends_$extname")"
+
+	pkgdesc="PHP8 extension: $extname"
+
+	depends="$depends $extdepends"
+	provides="php-$extname=$pkgver-r$pkgrel php8-$extname=$pkgver-r$pkgrel"
+  	replaces="php-$extname php8-$extname"
+
+	case "$extname" in
+	pdo_*) depends="$depends $pkgname-pdo>=8.5.0 $pkgname-pdo<8.6.0"
+	esac
+
+	# extension dependencies and loading order
+	local elo=00
+	[ -z "$extdepends" ] || elo=01
+    if [ "$extname" = "pdo_mysql" ]; then
+        elo=20
+    fi
+    if [ "$extname" = "mysqli" ]; then
+        elo=20
+    fi
+	# extension prefix
+	local prefix=
+	[ "$extname" != "opcache" ] || prefix="zend_"
+
+	mkdir -p "$subpkgdir"/usr/lib/php/modules "$subpkgdir"/etc/php/conf.d
+	mv "$pkgdir"/usr/lib/php/modules/$extname.so "$subpkgdir"/usr/lib/php/modules/ || return 1
+
+	echo "${prefix}extension=$extname" \
+		> "$subpkgdir"/etc/php/conf.d/${elo}_${extname}.ini
+}
+
+sha512sums="
+61e4d1128b320b3dd98ac739ffa28e9ed4a1f2e27b4f2d76189c6288bdec89126c9dcbd1203f31e3e6e4bd021011c7b269c1548bd990b954b71180fa6650046b  php-8.5.0.tar.bz2
+4b3ec005059a74c9f2019d8ba074cf419978e6390dd7179422848b00dd358392ce377619caed7800148689c4b6dff110cce4409cc6b8644248a6ca9b6fe2b7a6  install-pear.patch
+"

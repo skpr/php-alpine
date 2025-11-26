@@ -1,0 +1,38 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.5-spx
+_pkgreal=spx
+pkgver=0.4.22
+pkgrel=1
+provides="php-spx=8.5"
+pkgdesc="SPX - A simple profiler for PHP"
+url="https://github.com/NoiseByNorthwest/php-spx"
+arch="all"
+license="PHP-3"
+depends="php8.5-common>=8.5.0 php8.5-common<8.6.0"
+makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf"
+source="php-spx-$pkgver.tar.gz::https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.17.tar.gz"
+builddir="$srcdir/php-spx-0.4.17"
+
+prepare() {
+	default_prepare || return 1
+}
+
+build() {
+	cd "$builddir"
+	phpize || return 1
+	./configure --prefix=/usr --with-php-config=/usr/bin/php-config || return 1
+    make || return 1
+}
+
+package() {
+	mkdir -p "$pkgdir" || return 1
+    install -d $pkgdir/ || return 1
+    make -C "$builddir" INSTALL_ROOT="$pkgdir" install || return 1
+    install -d "$pkgdir"/etc/php/conf.d || return 1
+    echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
+}
+
+sha512sums="
+e668eb91caba5edd13bf4d67cc59d571c15920ef080e6fe371f8d878c10ff4512e35fcae90d1b987c149c4ac47f09127edd0b8b189249b3085a4d1f5d6b34313  php-spx-0.4.22.tar.gz
+"
