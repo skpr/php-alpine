@@ -11,8 +11,8 @@ arch="all"
 license="PHP-3"
 depends="php8.5-common>=8.5.0 php8.5-common<8.6.0"
 makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf"
-source="php-spx-$pkgver.tar.gz::https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.17.tar.gz"
-builddir="$srcdir/php-spx-0.4.17"
+source="php-spx-$pkgver.tar.gz::https://github.com/NoiseByNorthwest/php-spx/archive/refs/tags/v0.4.22.tar.gz"
+builddir="$srcdir/php-spx-0.4.22"
 
 prepare() {
 	default_prepare || return 1
@@ -33,6 +33,4 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="
-e668eb91caba5edd13bf4d67cc59d571c15920ef080e6fe371f8d878c10ff4512e35fcae90d1b987c149c4ac47f09127edd0b8b189249b3085a4d1f5d6b34313  php-spx-0.4.22.tar.gz
-"
+sha512sums="03513a6f3d223f29f118d75fc5c89ed92054fb6f0ea91cfe85354462bdce4b57adaffcc7d02695b6723cff3fc1102deedccfd40425e693099fc7d3c5e7e871ba  php-spx-0.4.22.tar.gz"
