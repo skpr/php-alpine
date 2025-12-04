@@ -33,4 +33,6 @@ package() {
     echo "extension=$_pkgreal" > "$pkgdir"/etc/php/conf.d/01_$_pkgreal.ini || return 1
 }
 
-sha512sums="03513a6f3d223f29f118d75fc5c89ed92054fb6f0ea91cfe85354462bdce4b57adaffcc7d02695b6723cff3fc1102deedccfd40425e693099fc7d3c5e7e871ba  php-spx-0.4.22.tar.gz"
+sha512sums="
+03513a6f3d223f29f118d75fc5c89ed92054fb6f0ea91cfe85354462bdce4b57adaffcc7d02695b6723cff3fc1102deedccfd40425e693099fc7d3c5e7e871ba  php-spx-0.4.22.tar.gz
+"
