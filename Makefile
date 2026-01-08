@@ -6,7 +6,7 @@ BUILD_IMAGE=skpr-abuild:latest
 
 build: image
 	# @todo, Make sure keys exist.
-	docker container run -v $(CURDIR)/packages:/packages \
+	docker run -v $(CURDIR)/packages:/packages \
 		-v $(CURDIR)/_output/$(ALPINE)/php$(PHP):/_output/packages \
 		$(BUILD_IMAGE) $(PHP) ${ARCH}
 

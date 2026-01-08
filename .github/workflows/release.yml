@@ -10,29 +10,37 @@ jobs:
   release:
     strategy:
       matrix:
-        build_image: ["ubuntu-24.04", "ubuntu-24.04-arm"]
-        alpine: [ "3.20" ]
-        php: [ "8.4" ]
+        build_image:
+          - "ubuntu-24.04"
+          - "ubuntu-24.04-arm"
+        alpine:
+         - "3.21"
+        php:
+          - "8.4"
     runs-on: ${{ matrix.build_image }}
     steps:
       - name: ↙️ Checkout
         uses: actions/checkout@v4
         with:
           show-progress: false
+
       - name: 🔑 Generate public keys
         run: make keys
+
       - name: 🏗️  Build
         run: |
           ARCH=$(uname -m)
           echo "ARCH=${ARCH}" >> $GITHUB_ENV
           echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
+
       - name: 🔐 Get AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
       - name: 🚀  Publish Packages
         run: |
           echo "Publishing alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
@@ -43,10 +51,10 @@ jobs:
 #                       s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}
 #           # Public key for validating repository packages.
 #           aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/skpr.rsa.pub
-      - name: ☁️ Invalidate Cloudfront
-        run: |
-          aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
-            --paths /php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/*
-      - name: 🧹 Clean up
-        run: rm -f build/.abuild/skpr.rsa
+#      - name: ☁️ Invalidate Cloudfront
+#        run: |
+#          aws cloudfront create-invalidation \
+#            --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
+#            --paths /php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/*
+#      - name: 🧹 Clean up
+#        run: rm -f build/.abuild/skpr.rsa
