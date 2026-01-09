@@ -55,7 +55,7 @@ jobs:
                       s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}
 
           # Public key for validating repository packages.
-          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/skpr.rsa.pub
+          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}/skpr.rsa.pub
 
       - name: ☁️ Invalidate Cloudfront
         run: |
