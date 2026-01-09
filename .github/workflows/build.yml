@@ -15,8 +15,12 @@ jobs:
           - "ubuntu-24.04-arm"
         alpine:
          - "3.21"
+         - "3.22"
         php:
+          - "8.2"
+          - "8.3"
           - "8.4"
+          - "8.5"
     runs-on: ${{ matrix.build_image }}
     steps:
       - name: ↙️ Checkout
