@@ -55,7 +55,16 @@ jobs:
                       s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}
 
           # Public key for validating repository packages.
+          # We generate one per Alpine, PHP, and ARCH.
           aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}/skpr.rsa.pub
+
+          # Copying a second public key to a directory structure that is easier to integrate in image builds using TARGETARCH.
+          case "${ARCH}" in
+            x86_64) TARGETARCH="amd64" ;;
+            aarch64) TARGETARCH="arm64" ;;
+            *) echo "Unsupported ARCH=${ARCH}" >&2; exit 1 ;;
+          esac
+          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/skpr-${TARGETARCH}.rsa.pub
 
       - name: ☁️ Invalidate Cloudfront
         run: |
