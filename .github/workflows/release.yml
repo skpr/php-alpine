@@ -3,7 +3,7 @@ name: 🚀 Release
 on:
   workflow_dispatch: ~
   push:
-    branches:
+    branches-ignore:
       - main
       - github-actions
 

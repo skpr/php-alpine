@@ -2,7 +2,7 @@ name: 🏗️ Build
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
       - github-actions
 
@@ -32,3 +32,6 @@ jobs:
           ARCH=$(uname -m)
           echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
+
+
+make build ARCH=${ARCH} ALPINE=<< parameters.alpine >> PHP=<< parameters.php >>
