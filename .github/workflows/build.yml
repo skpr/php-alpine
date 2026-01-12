@@ -13,6 +13,7 @@ jobs:
           - "ubuntu-24.04"
           - "ubuntu-24.04-arm"
         alpine:
+         - "3.20"
          - "3.21"
         php:
           - "8.4"
