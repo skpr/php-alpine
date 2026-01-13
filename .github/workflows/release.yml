@@ -28,6 +28,13 @@ jobs:
         with:
           show-progress: false
 
+      - name: 🔐 Get AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: 🔑 Decrypt Keys
         run: |
           # Move to a Github Secret in a future release.
@@ -42,13 +49,6 @@ jobs:
           echo "ARCH=${ARCH}" >> $GITHUB_ENV
           echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
-
-      - name: 🔐 Get AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: 🚀  Publish Packages
         run: |
