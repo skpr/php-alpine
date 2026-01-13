@@ -24,8 +24,20 @@ jobs:
         with:
           show-progress: false
 
-      - name: 🔑 Generate keys
-        run: make keys
+      - name: 🔐 Get AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: 🔑 Decrypt Keys
+        run: |
+          # Move to a Github Secret in a future release.
+          aws kms decrypt \
+              --ciphertext-blob fileb://<(cat build/.abuild/skpr.rsa.asc | base64 --decode) \
+              --output text \
+              --query Plaintext | base64 --decode > build/.abuild/skpr.rsa
 
       - name: 🏗️  Build
         run: |

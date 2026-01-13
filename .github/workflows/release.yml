@@ -28,8 +28,20 @@ jobs:
         with:
           show-progress: false
 
-      - name: 🔑 Generate public keys
-        run: make keys
+      - name: 🔐 Get AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: 🔑 Decrypt Keys
+        run: |
+          # Move to a Github Secret in a future release.
+          aws kms decrypt \
+              --ciphertext-blob fileb://<(cat build/.abuild/skpr.rsa.asc | base64 --decode) \
+              --output text \
+              --query Plaintext | base64 --decode > build/.abuild/skpr.rsa
 
       - name: 🏗️  Build
         run: |
@@ -37,13 +49,6 @@ jobs:
           echo "ARCH=${ARCH}" >> $GITHUB_ENV
           echo "Building alpine ${{ matrix.alpine }} php ${{ matrix.php }} arch ${ARCH}"
           make build ARCH=${ARCH} ALPINE=${{ matrix.alpine }} PHP=${{ matrix.php }}
-
-      - name: 🔐 Get AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: 🚀  Publish Packages
         run: |
@@ -54,17 +59,8 @@ jobs:
                       _output/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH} \
                       s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}
 
-          # Public key for validating repository packages.
-          # We generate one per Alpine, PHP, and ARCH.
-          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/${ARCH}/skpr.rsa.pub
-
-          # Copying a second public key to a directory structure that is easier to integrate in image builds using TARGETARCH.
-          case "${ARCH}" in
-            x86_64) TARGETARCH="amd64" ;;
-            aarch64) TARGETARCH="arm64" ;;
-            *) echo "Unsupported ARCH=${ARCH}" >&2; exit 1 ;;
-          esac
-          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/${{ matrix.alpine }}/php${{ matrix.php }}/skpr-${TARGETARCH}.rsa.pub
+          # Public key for validating repository pakages.
+          aws s3 cp build/.abuild/skpr.rsa.pub s3://package-skpr-io/php-alpine/skpr.rsa.pub
 
       - name: ☁️ Invalidate Cloudfront
         run: |
