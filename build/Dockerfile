@@ -15,7 +15,7 @@ ENV PHP_LDFLAGS="-Wl,-O1 -pie"
 
 ENV GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
-RUN apk add --no-cache alpine-sdk sudo bash \
+RUN apk add --no-cache alpine-sdk sudo bash curl \
     && adduser -D -g '' -u 1000 -G abuild packager \
     && echo "packager ALL=(ALL) ALL" >> /etc/sudoers \
     && echo "packager ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
