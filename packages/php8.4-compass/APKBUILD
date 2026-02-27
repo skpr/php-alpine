@@ -21,13 +21,15 @@ prepare() {
 build() {
 	cd "$builddir"
 	mise trust
-    mise build
+    mise run build
 }
 
 package() {
-	mkdir -p "$pkgdir"
-    cp ${builddir}/00_compass.ini ${pkgdir}/etc/php/conf.d/00_compass.ini
-    cp ${builddir}/target/release/libcompass_extension.so ${pkgdir}/usr/lib/php/modules/compass.so
+    mkdir -p "$pkgdir"/etc/php/conf.d
+    mkdir -p "$pkgdir"/usr/lib/php/modules
+
+    cp "${builddir}/00_compass.ini" "${pkgdir}/etc/php/conf.d/00_compass.ini"
+    cp "${builddir}/target/release/libcompass_extension.so" "${pkgdir}/usr/lib/php/modules/compass.so"
 }
 
 sha512sums="
