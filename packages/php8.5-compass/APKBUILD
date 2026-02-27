@@ -12,7 +12,7 @@ license="PHP-3"
 depends="php8.5-common>=8.5.0 php8.5-common<8.6.0"
 makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf alpine-sdk clang clang-dev mise"
 source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v0.0.1.tar.gz"
-builddir="$srcdir/php-compass-0.0.1"
+builddir="$srcdir/compass-extension-0.0.1"
 
 prepare() {
 	default_prepare || return 1
