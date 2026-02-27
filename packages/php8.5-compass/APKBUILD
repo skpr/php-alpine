@@ -21,6 +21,7 @@ prepare() {
 build() {
 	cd "$builddir"
 	mise trust
+	mise settings set experimental true
     mise run build
 }
 
