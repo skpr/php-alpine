@@ -128,7 +128,7 @@ for _ext in $_exts; do
 	*) subpackages="$subpackages $pkgname-$_ext:_package_ext";;
 	esac
 done
-subpackages="$subpackages $pkgname-common::noarch"
+subpackages="$subpackages $pkgname-common"
 
 _apiver="20240924"
 
@@ -208,6 +208,7 @@ build() {
 		--with-pgsql=shared --with-pdo-pgsql=shared \
 		--with-unixODBC=shared,/usr -with-pdo-odbc=shared,unixODBC,/usr \
 		--with-dbmaker=shared \
+		--enable-embed=shared \
 		--enable-fileinfo=shared \
         --enable-opcache=shared \
 		--enable-pdo=shared \
