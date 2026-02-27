@@ -10,7 +10,7 @@ url="https://github.com/skpr/compass-extension"
 arch="all"
 license="PHP-3"
 depends="php8.4-common>=8.4.0 php8.4-common<8.5.0"
-makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf alpine-sdk clang clang-dev rust cargo mise"
+makedepends="php8.4-dev>=8.4.0 php8.4-dev<8.5.0 autoconf alpine-sdk clang clang-dev mise"
 source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v0.0.2.tar.gz"
 builddir="$srcdir/compass-extension-0.0.2"
 
@@ -20,9 +20,9 @@ prepare() {
 
 build() {
 	cd "$builddir"
+	curl https://mise.run | sh
 	mise trust
-	mise settings set experimental true
-    mise run build
+    mise build
 }
 
 package() {
