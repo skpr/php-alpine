@@ -21,8 +21,8 @@ prepare() {
 build() {
 	cd "$builddir"
 	curl https://mise.run | sh
-	mise trust
-    mise build
+	export MISE_YES=1
+    ~/.local/bin/mise build
 }
 
 package() {
