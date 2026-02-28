@@ -1,16 +1,16 @@
 # Maintainer: Nick Schuch <nick.schuch@skpr.io>
 
-pkgname=php8.2-compass
+pkgname=php8.3-compass
 _pkgreal=compass
 pkgver=0.0.3
 pkgrel=1
-provides="php-compass=8.2"
+provides="php-compass=8.3"
 pkgdesc="Compass - Probes for instrumenting PHP applications"
 url="https://github.com/skpr/compass-extension"
 arch="all"
 license="PHP-3"
-depends="php8.2-common>=8.2.0 php8.2-common<8.3.0"
-makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf alpine-sdk clang clang-dev"
+depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
+makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf alpine-sdk clang clang-dev"
 source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v0.0.3.tar.gz"
 builddir="$srcdir/compass-extension-0.0.3"
 
