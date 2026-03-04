@@ -2,36 +2,38 @@
 
 pkgname=php8.3-compass
 _pkgreal=compass
-pkgver=0.0.3
+pkgver=0.0.4
 pkgrel=1
 provides="php-compass=8.3"
 pkgdesc="Compass - Probes for instrumenting PHP applications"
 url="https://github.com/skpr/compass-extension"
 arch="all"
 license="PHP-3"
+
 depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
 makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf alpine-sdk clang clang-dev"
-source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v0.0.3.tar.gz"
-builddir="$srcdir/compass-extension-0.0.3"
+
+source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v$pkgver.tar.gz"
+builddir="$srcdir/compass-extension-$pkgver"
 
 prepare() {
-	default_prepare || return 1
+    default_prepare || return 1
 }
 
 build() {
-	cd "$builddir"
-	curl https://mise.run | sh
-	export MISE_YES=1
+    cd "$builddir"
+    curl https://mise.run | sh
+    export MISE_YES=1
     ~/.local/bin/mise build
 }
 
 package() {
     mkdir -p "$pkgdir"/etc/php/conf.d
     mkdir -p "$pkgdir"/usr/lib/php/modules
-    cp "${builddir}/00_compass.ini" "${pkgdir}/etc/php/conf.d/00_compass.ini"
-    cp "${builddir}/target/release/libcompass_extension.so" "${pkgdir}/usr/lib/php/modules/compass.so"
+    cp "$builddir/00_compass.ini" "$pkgdir/etc/php/conf.d/00_compass.ini"
+    cp "$builddir/target/release/libcompass_extension.so" "$pkgdir/usr/lib/php/modules/compass.so"
 }
 
 sha512sums="
-03513a6f3d223f29f118d75fc5c89ed92054fb6f0ea91cfe85354462bdce4b57adaffcc7d02695b6723cff3fc1102deedccfd40425e693099fc7d3c5e7e871ba  php-compass-0.0.3.tar.gz
+8a73c623a7ec12aee56f3100e68febd043aece28808ceb695728cc2c32030333ba11fb834e67d7d0541135d0510be3f5dd5093d514bd67fa604a2d8b0fe6230a  php-compass-0.0.4.tar.gz
 "
