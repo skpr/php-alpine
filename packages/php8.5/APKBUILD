@@ -57,7 +57,7 @@ makedepends="
 	zlib-dev
 	"
 
-source="php-$pkgver.tar.bz2::https://www.php.net/distributions/php-$pkgver.tar.bz2
+source="php-$pkgver.tar.bz2::https://packages.skpr.io/distributions/php-$pkgver.tar.bz2
 	install-pear.patch
 	"
 builddir="$srcdir/php-$pkgver"
