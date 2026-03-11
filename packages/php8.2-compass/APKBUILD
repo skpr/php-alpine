@@ -2,7 +2,7 @@
 
 pkgname=php8.2-compass
 _pkgreal=compass
-pkgver=0.0.5
+pkgver=0.0.6
 pkgrel=1
 provides="php-compass=8.2"
 pkgdesc="Compass - Probes for instrumenting PHP applications"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-4dc2f550210224330504550537757216ef2068444f6d760371cd430381f2f1fd9f01691c3876f7320d14c13af841e603ce21d152f1b50cd3a9430a7017f4b788  php-compass-0.0.5.tar.gz
+75b8ac2491d60736ab8c03fc88d0dfbb42f18deae1f425b9c2eb3047783a362d8260720779b6ca86c5ea5777372b36f5cae8713641568b35fdf424028ecc5cee  compass-extension-0.0.6.tar.gz
 "
