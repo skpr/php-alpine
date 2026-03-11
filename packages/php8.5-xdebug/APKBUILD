@@ -2,7 +2,7 @@
 
 pkgname=php8.5-xdebug
 _pkgreal=xdebug
-pkgver=3.5.0_alpha3
+pkgver=3.5.0
 _pkgver=${pkgver//_/}
 pkgrel=1
 provides="php-xdebug=8.5"
@@ -40,5 +40,5 @@ package() {
 }
 
 sha512sums="
-bd0552ed3ea473be9f735ceb48d7a29bb3fa46310a7e9af8e6d6fab9f2bb16a8effc12cc9102fc8a2ad26d74f5ae6704c7efa6c9d86bbe6ab240b7d9d89d20ad  xdebug-3.5.0alpha3.tgz
+bd0552ed3ea473be9f735ceb48d7a29bb3fa46310a7e9af8e6d6fab9f2bb16a8effc12cc9102fc8a2ad26d74f5ae6704c7efa6c9d86bbe6ab240b7d9d89d20ad  xdebug-3.5.0.tgz
 "
