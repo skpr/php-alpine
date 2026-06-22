@@ -17,6 +17,7 @@ jobs:
          - "3.21"
          - "3.22"
          - "3.23"
+         - "3.24"
         php:
           - "8.4"
     runs-on: ${{ matrix.build_image }}
