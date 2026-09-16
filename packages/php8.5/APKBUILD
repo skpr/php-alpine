@@ -307,6 +307,17 @@ fpm() {
 		mv "$subpkgdir"/etc/php/$file.default \
 			"$subpkgdir"/etc/php/$file || return 1
 	done
+
+	# PHP 8.5 rewrote the FPM access log on top of zlog streams, so the line
+	# length is now capped by the global "log_limit" setting (default 1024)
+	# rather than the -DMAX_LINE_LENGTH build flag we use on 8.2 - 8.4.
+	# Keep the same 8192 byte ceiling we have had on the older branches.
+	sed -i -e 's|^;log_limit = .*|log_limit = 8192|' \
+		"$subpkgdir"/etc/php/php-fpm.conf || return 1
+	grep -q '^log_limit = 8192$' "$subpkgdir"/etc/php/php-fpm.conf || {
+		error "failed to set log_limit in php-fpm.conf"
+		return 1
+	}
 }
 
 pear() {
@@ -394,6 +405,6 @@ _package_ext() {
 }
 
 sha512sums="
-61e4d1128b320b3dd98ac739ffa28e9ed4a1f2e27b4f2d76189c6288bdec89126c9dcbd1203f31e3e6e4bd021011c7b269c1548bd990b954b71180fa6650046b  php-8.5.0.tar.bz2
+b7f71a2caa7ce4a69adf90ecd8ff35ea3488b0da77e0d34d0cf52e54e63a298bbf6fc9d311f41885d9aa679ec168ab92d03fefbc454d06dfc105961cea0213d6  php-8.5.10.tar.bz2
 4b3ec005059a74c9f2019d8ba074cf419978e6390dd7179422848b00dd358392ce377619caed7800148689c4b6dff110cce4409cc6b8644248a6ca9b6fe2b7a6  install-pear.patch
 "

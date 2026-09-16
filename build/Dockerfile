@@ -7,7 +7,12 @@ FROM alpine:${ALPINE_VERSION}
 # Enable optimization (-O2)
 # Enable linker optimization (this sorts the hash buckets to improve cache locality, and is non-default)
 # https://github.com/docker-library/php/issues/272
-# -DMAX_LINE_LENGTH (https://serverfault.com/questions/1017932/php-fpm-notice-the-log-buffer-is-full-1024-the-access-log-request-has-been)
+# -DMAX_LINE_LENGTH grows the PHP-FPM access log buffer past its 1024 byte default
+# (https://serverfault.com/questions/1017932/php-fpm-notice-the-log-buffer-is-full-1024-the-access-log-request-has-been).
+# It only has an effect on PHP 8.2 and 8.3 out of the box: 8.4 dropped the #ifdef it
+# relies on (php/php-src#5634), which packages/php8.4/fpm-log-buffer.patch restores,
+# and 8.5 replaced the buffer entirely with the runtime "log_limit" setting, which
+# packages/php8.5/APKBUILD pins to 8192 in php-fpm.conf.
 # -D_LARGEFILE_SOURCE and -D_FILE_OFFSET_BITS=64 (https://www.php.net/manual/en/intro.filesystem.php)
 ENV PHP_CFLAGS="-fstack-protector-strong -fpic -fpie -O2 -DMAX_LINE_LENGTH=8192 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 ENV PHP_CPPFLAGS="$PHP_CFLAGS"

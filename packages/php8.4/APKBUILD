@@ -59,6 +59,7 @@ makedepends="
 
 source="php-$pkgver.tar.bz2::https://packages.skpr.io/distributions/php-$pkgver.tar.bz2
 	install-pear.patch
+	fpm-log-buffer.patch
 	"
 builddir="$srcdir/php-$pkgver"
 
@@ -395,6 +396,7 @@ _package_ext() {
 }
 
 sha512sums="
-22acfdc4bd39289ea1cb8ff3922beac73c110d817c1799b5079bc32c0324e215b0244b1ed3272d98d9b714c70d684a95535c6eda19e500da8f1d10799d48b19f  php-8.4.0.tar.bz2
+edd96b8684d984c4d994480e7299023ed5425a3045051de2ee73f12588e4a255e49e0667d84f405bd6fb8806552a4704b4b6ad7d5eb203e1939cbed2f979a7b3  php-8.4.25.tar.bz2
 baeaa9168a0aaf7edc15da770e0cf00db9dba5763622ed58a1d8b3e6dacf8938913fbf3a3a2fac728b55e4ce2b92bfa07a19599b5ffd1f83a89e0b57fb7c4856  install-pear.patch
+ed7936fcd1188d9738625f218eaf5562d73171fb61012fe2fa48608feb45edaf8dfdb31f555376614aa5dd149669a36af2a237625f820809f827ef24f66f7d56  fpm-log-buffer.patch
 "
