@@ -1,0 +1,30 @@
+Restore the MAX_LINE_LENGTH build-time override for the FPM access log buffer.
+
+PHP 8.4 dropped this #ifdef in php/php-src@9c267778 ("FPM: Remove usage of
+non-existing MAX_LINE_LENGTH constant", php/php-src#5634) on the assumption
+that nothing ever defined the constant. We do: build/Dockerfile passes
+-DMAX_LINE_LENGTH=8192 through PHP_CFLAGS so that access log lines are not
+truncated at 1024 bytes with "the log buffer is full (1024)".
+
+This restores the pre-8.4 behaviour verbatim, so the buffer size stays driven
+by PHP_CFLAGS for 8.2, 8.3 and 8.4 alike.
+
+PHP 8.5 replaced this fixed buffer with zlog streams bounded by the runtime
+"log_limit" setting, so this patch is specific to the 8.4 branch and must not
+be carried forward.
+
+--- a/sapi/fpm/fpm/fpm_log.c
++++ b/sapi/fpm/fpm/fpm_log.c
+@@ -19,7 +19,11 @@
+ #include "fastcgi.h"
+ #include "zlog.h"
+ 
+-#define FPM_LOG_BUFFER 1024
++#ifdef MAX_LINE_LENGTH
++# define FPM_LOG_BUFFER MAX_LINE_LENGTH
++#else
++# define FPM_LOG_BUFFER 1024
++#endif
+ 
+ static char *fpm_log_format = NULL;
+ static int fpm_log_fd = -1;
