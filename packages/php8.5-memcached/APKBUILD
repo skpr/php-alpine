@@ -11,7 +11,7 @@ arch="all"
 license="PHP-3"
 depends="php8.5-common>=8.5.0 php8.5-common<8.6.0 php8.5-session>=8.5.0 php8.5-session<8.6.0"
 makedepends="php8.5-dev>=8.5.0 php8.5-dev<8.6.0 autoconf libmemcached-dev"
-source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+source="https://packages.skpr.io/distributions/$_pkgreal-$pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 
 prepare() {

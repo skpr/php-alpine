@@ -30,6 +30,11 @@ make ALPINE=3.8 PHP=7.3
 make ALPINE=3.8 PHP=7.2
 ```
 
+**Mirror PECL Extensions**
+
+Extension sources are pulled from https://packages.skpr.io/distributions instead of pecl.php.net.
+When adding or bumping an extension, add it to `scripts/mirror-pecl`, run it and upload the tarballs to the mirror.
+
 ## Thankyou
 
 This project was inspired by:

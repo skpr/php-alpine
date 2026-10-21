@@ -12,7 +12,7 @@ license="PHP-3"
 depends="php8.2-common>=8.2.0 php8.2-common<8.3.0 imagemagick"
 checkdepends="ghostscript-fonts imagemagick-jpeg imagemagick-svg"
 makedepends="php8.2-dev>=8.2.0 php8.2-dev<8.3.0 autoconf imagemagick-dev"
-source="https://pecl.php.net/get/$_pkgreal-$pkgver.tgz"
+source="https://packages.skpr.io/distributions/$_pkgreal-$pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 
 prepare() {

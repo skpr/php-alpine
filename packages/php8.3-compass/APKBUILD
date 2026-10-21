@@ -22,7 +22,8 @@ prepare() {
 
 build() {
     cd "$builddir"
-    curl https://mise.run | sh
+    curl -fsSL --retry 5 --retry-all-errors -o "$srcdir/mise-install.sh" https://mise.run
+    sh "$srcdir/mise-install.sh"
     export MISE_YES=1
     ~/.local/bin/mise build
 }

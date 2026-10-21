@@ -12,7 +12,7 @@ arch="all"
 license="XDEBUG-1"
 depends="php8.3-common>=8.3.0 php8.3-common<8.4.0"
 makedepends="php8.3-dev>=8.3.0 php8.3-dev<8.4.0 autoconf"
-source="http://pecl.php.net/get/$_pkgreal-$_pkgver.tgz"
+source="https://packages.skpr.io/distributions/$_pkgreal-$_pkgver.tgz"
 builddir="$srcdir/$_pkgreal-$_pkgver"
 
 prepare() {
