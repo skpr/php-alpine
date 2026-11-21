@@ -47,6 +47,18 @@ if [ "$PHP_VERSION" == "8.5" ]; then
   done
 fi
 
+# Temporary workaround for unavailable packages for PHP 8.6.
+# Xdebug 3.5.x refuses to configure against PHP >= 8.6.0.
+if [ "$PHP_VERSION" == "8.6" ]; then
+  exclude_packages=(
+    "php${PHP_VERSION}-grpc"
+    "php${PHP_VERSION}-xdebug"
+  )
+  for i in "${exclude_packages[@]}"; do
+    packages=(${packages[@]//*$i*})
+  done
+fi
+
 for package in "${packages[@]}"; do
   echo "Building Package: ${package}"
 

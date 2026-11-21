@@ -1,0 +1,40 @@
+# Maintainer: Nick Schuch <nick.schuch@skpr.io>
+
+pkgname=php8.6-compass
+_pkgreal=compass
+pkgver=1.1.0
+pkgrel=1
+provides="php-compass=8.6"
+pkgdesc="Compass - Probes for instrumenting PHP applications"
+url="https://github.com/skpr/compass-extension"
+arch="all"
+license="PHP-3"
+
+depends="php8.6-common>=8.6.0 php8.6-common<8.7.0"
+makedepends="php8.6-dev>=8.6.0 php8.6-dev<8.7.0 autoconf alpine-sdk clang clang-dev"
+
+source="php-compass-$pkgver.tar.gz::https://github.com/skpr/compass-extension/archive/refs/tags/v$pkgver.tar.gz"
+builddir="$srcdir/compass-extension-$pkgver"
+
+prepare() {
+    default_prepare || return 1
+}
+
+build() {
+    cd "$builddir"
+    curl -fsSL --retry 5 --retry-all-errors -o "$srcdir/mise-install.sh" https://mise.run
+    sh "$srcdir/mise-install.sh"
+    export MISE_YES=1
+    ~/.local/bin/mise build
+}
+
+package() {
+    mkdir -p "$pkgdir"/etc/php/conf.d
+    mkdir -p "$pkgdir"/usr/lib/php/modules
+    cp "$builddir/00_compass.ini" "$pkgdir/etc/php/conf.d/00_compass.ini"
+    cp "$builddir/target/release/libcompass_extension.so" "$pkgdir/usr/lib/php/modules/compass.so"
+}
+
+sha512sums="
+92892c680a72a47c910ee1e2a3f1376961f4af6664dbe759170e3a395ed7a799f9528cd61b06d547563b4fed42c60f6333112718add503ca845a3308040770c7  compass-extension-1.1.0.tar.gz
+"
