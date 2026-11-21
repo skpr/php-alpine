@@ -169,7 +169,7 @@ build() {
 		--localstatedir=/var \
 		--with-avif \
 		--with-layout=GNU \
-		--with-pic \
+		--enable-pic \
 		--with-password-argon2 \
 		--with-pear=/usr/share/php \
 		--with-php-config=/usr/bin/php-config \
