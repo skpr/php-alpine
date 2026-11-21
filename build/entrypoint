@@ -47,7 +47,8 @@ if [ "$PHP_VERSION" == "8.5" ]; then
   done
 fi
 
-# Temporary workaround for unavailable packages for PHP 8.6.
+# Temporary workaround for unavailable packages for PHP 8.6. These have no
+# packages/php8.6-* directory until upstream supports PHP 8.6.
 # Xdebug 3.5.x refuses to configure against PHP >= 8.6.0, and the current
 # apcu, imagick, memcached and redis releases still use compatibility macros
 # that PHP 8.6.0 removed (zval_dtor, XtOffsetOf, etc.). Compass's phper

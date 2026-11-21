@@ -27,7 +27,7 @@ We are waiting on upstream releases with PHP 8.6 support before building these e
 | spx | 0.4.22 only supports up to PHP 8.5. |
 | xdebug | 3.5.x refuses to build against PHP 8.6. |
 
-Skipped extensions are listed in `build/entrypoint`. To re-enable one, bump its `packages/php8.6-*/APKBUILD` to a release with PHP 8.6 support, mirror the tarball and remove it from the exclude list.
+Skipped extensions are listed in `build/entrypoint`. To add one back, create `packages/php8.6-<extension>` from its `packages/php8.5-<extension>` counterpart, bump it to a release with PHP 8.6 support, mirror the tarball and remove it from the exclude list.
 
 ## Local Development
 
