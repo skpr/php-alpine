@@ -10,6 +10,25 @@ RUN apk add --no-cache curl ca-certificates && \
     echo "https://packages.skpr.io/php-alpine/${ALPINE_VERSION}/php${PHP_VERSION}" >> /etc/apk/repositories
 ```
 
+## PHP 8.6
+
+PHP 8.6 currently ships the base PHP packages only (`php8.6` and its bundled extensions, eg. `php8.6-fpm`, `php8.6-intl`, `php8.6-pdo_mysql`).
+
+We are waiting on upstream releases with PHP 8.6 support before building these extensions:
+
+| Extension | Blocker |
+|-----------|---------|
+| apcu | Uses compatibility macros removed in PHP 8.6.0. Fixed on master, waiting on a release. |
+| compass | phper bindings don't compile against the PHP 8.6.0 headers. |
+| grpc | Not yet available (also skipped for PHP 8.5). |
+| imagick | Uses compatibility macros removed in PHP 8.6.0 (`zval_dtor`, `XtOffsetOf`). |
+| memcached | Uses compatibility macros removed in PHP 8.6.0 (`zval_dtor`, `XtOffsetOf`). |
+| redis | Uses compatibility macros removed in PHP 8.6.0 (`zval_dtor`, `zval_is_true`, `XtOffsetOf`). |
+| spx | 0.4.22 only supports up to PHP 8.5. |
+| xdebug | 3.5.x refuses to build against PHP 8.6. |
+
+Skipped extensions are listed in `build/entrypoint`. To re-enable one, bump its `packages/php8.6-*/APKBUILD` to a release with PHP 8.6 support, mirror the tarball and remove it from the exclude list.
+
 ## Local Development
 
 **Generate Keys**
