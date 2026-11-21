@@ -48,10 +48,20 @@ if [ "$PHP_VERSION" == "8.5" ]; then
 fi
 
 # Temporary workaround for unavailable packages for PHP 8.6.
-# Xdebug 3.5.x refuses to configure against PHP >= 8.6.0.
+# Xdebug 3.5.x refuses to configure against PHP >= 8.6.0, and the current
+# apcu, imagick, memcached and redis releases still use compatibility macros
+# that PHP 8.6.0 removed (zval_dtor, XtOffsetOf, etc.). Compass's phper
+# bindings don't compile against the PHP 8.6.0 headers yet, and spx 0.4.22
+# hard-errors on anything newer than PHP 8.5.
 if [ "$PHP_VERSION" == "8.6" ]; then
   exclude_packages=(
+    "php${PHP_VERSION}-apcu"
+    "php${PHP_VERSION}-compass"
     "php${PHP_VERSION}-grpc"
+    "php${PHP_VERSION}-imagick"
+    "php${PHP_VERSION}-memcached"
+    "php${PHP_VERSION}-redis"
+    "php${PHP_VERSION}-spx"
     "php${PHP_VERSION}-xdebug"
   )
   for i in "${exclude_packages[@]}"; do
